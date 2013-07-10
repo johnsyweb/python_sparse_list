@@ -63,6 +63,30 @@ class TestSparseList(unittest.TestCase):
         self.assertEquals('[0, 0, 0, 5, 6]', repr(sl))
         self.assertEquals('[0, 0, 0, 5, 6]', str(sl))
 
+    def test_initialisation_by_dict(self):
+        pass
+
+    def test_initialisation_by_list(self):
+        pass
+
+    def test_initialisation_by_generator(self):
+        pass
+
+    def test_access_with_negative_index(self):
+        pass
+
+    def test_slice(self):
+        pass
+
+    def test_extended_slice(self):
+        pass
+
+    def test_get_out_of_bounds(self):
+        pass
+
+    def test_set_out_of_bounds(self):
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()
