@@ -83,19 +83,42 @@ class TestSparseList(unittest.TestCase):
         self.assertEquals('[1, 2, 3]', repr(sl))
 
     def test_access_with_negative_index(self):
-        pass
+        sl = sparse_list.SparseList([0, 1, 2, 4])
+        self.assertEquals(4, sl[-1])
+
+    def test_access_with_negative_index_with_no_value(self):
+        sl = sparse_list.SparseList(5, 0)
+        self.assertEquals(0, sl[-1])
 
     def test_slice(self):
-        pass
+        sl = sparse_list.SparseList([0, 1, 2, 4], 10)
+        self.assertEquals([1, 2], sl[1:3])
 
     def test_extended_slice(self):
-        pass
+        sl = sparse_list.SparseList([0, 1, 2, 3, 4, 5, 6, ])
+        self.assertEquals([1, 3, 5], sl[1:6:2])
+
+    def test_extended_slice_with_negative_stop(self):
+        sl = sparse_list.SparseList([0, 1, 2, 3, 4, 5, 6, ])
+        self.assertEquals([1, 3, 5], sl[1:-1:2])
+
+    def test_slice_reversal_is_not_yet_supported(self):
+        sl = sparse_list.SparseList(1)
+        raised = False
+        try:
+            sl[::-1]
+        except ValueError:
+            raised = True
+        self.assert_(raised, 'Expected a ValueError')
 
     def test_get_out_of_bounds(self):
-        pass
+        sl = sparse_list.SparseList(1)
+        self.assertEquals(None, sl[1])
 
     def test_set_out_of_bounds(self):
-        pass
+        sl = sparse_list.SparseList(1)
+        sl[100] = 1
+        self.assertEquals(101, len(sl))
 
 
 if __name__ == '__main__':

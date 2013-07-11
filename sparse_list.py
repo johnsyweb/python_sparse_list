@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import itertools
+
 
 class SparseList(object):
     def __init__(self, arg, default_value=None):
@@ -17,13 +19,29 @@ class SparseList(object):
 
     def __setitem__(self, index, value):
         self.elements[index] = value
+        self.size = max(index + 1, self.size)
 
     def __getitem__(self, index):
-        return self.elements.get(index, self.default)
+        def normalise(index):
+            if index and index < 0:
+                index += self.size
+            return index
+
+        try:
+            if index.step and index.step < 0:
+                raise ValueError(
+                    'SparseList does not support negative steps [{}]'.format(
+                        index.step))
+            return list(itertools.islice(self,
+                                         normalise(index.start),
+                                         normalise(index.stop),
+                                         index.step))
+        except AttributeError:
+            return self.elements.get(normalise(index), self.default)
 
     def __iter__(self):
-        for i in xrange(self.size):
-            yield self[i]
+        for index in xrange(self.size):
+            yield self.elements.get(index, self.default)
 
     def __contains__(self, index):
         return index in self.elements.itervalues()
