@@ -2,10 +2,15 @@
 
 
 class SparseList(object):
-    def __init__(self, size, default_value=None):
-        self.size = int(size)
+    def __init__(self, arg, default_value=None):
         self.default = default_value
         self.elements = {}
+        if isinstance(arg, int):
+            self.size = int(arg)
+        elif isinstance(arg, dict):
+            self.initialise_from_dict(arg)
+        else:
+            self.initialise_from_iterable(arg)
 
     def __len__(self):
         return self.size
@@ -25,3 +30,18 @@ class SparseList(object):
 
     def __repr__(self):
         return '[{}]'.format(', '.join([str(x) for x in self]))
+
+    def initialise_from_dict(self, arg):
+        def convert_and_size(key):
+            try:
+                key = int(key)
+            except ValueError:
+                raise ValueError('Invalid key: {}'.format(key))
+            self.size = max(key + 1, self.size)
+            return key
+        self.size = 0
+        self.elements = {convert_and_size(k): v for k, v in arg.iteritems()}
+
+    def initialise_from_iterable(self, arg):
+        self.elements = {k: v for k, v in enumerate(arg)}
+        self.size = len(self.elements)
