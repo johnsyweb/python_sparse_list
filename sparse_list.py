@@ -33,6 +33,9 @@ class SparseList(object):
         except KeyError:
             pass
 
+    def __delslice__(self, start, stop):
+        map(self.__delitem__, xrange(start, stop))
+
     def __iter__(self):
         for index in xrange(self.size):
             yield self[index]

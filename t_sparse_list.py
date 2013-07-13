@@ -137,6 +137,11 @@ class TestSparseList(unittest.TestCase):
         del sl[1]
         self.assertEquals('[1, 0, 0, 0, 1]', repr(sl))
 
+    def test_slice_removal(self):
+        sl = sparse_list.SparseList(xrange(10), None)
+        del sl[3:5]
+        self.assertEquals('[0, 1, 2, None, None, 5, 6, 7, 8, 9]', repr(sl))
+
     def test_append(self):
         sl = sparse_list.SparseList(1, 0)
         sl.append(1)
