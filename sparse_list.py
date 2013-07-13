@@ -92,3 +92,8 @@ class SparseList(object):
         for x in xrange(multiplier):
             result += self[:]
         return result
+
+    def count(self, value):
+        return sum(map(lambda v: v == value, self.elements.itervalues())) + (
+            self.size - len(self.elements) if value == self.default else 0
+        )

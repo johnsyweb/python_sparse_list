@@ -227,6 +227,15 @@ class TestSparseList(unittest.TestCase):
         self.assertEquals(
             [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1], sl)
 
+    def test_count_value(self):
+        sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
+        self.assertEquals(2, sl.count(1))
+
+    def test_count_default_value(self):
+        sl = sparse_list.SparseList(100, 1)
+        sl[5] = 1
+        self.assertEquals(100, sl.count(1))
+
 
 if __name__ == '__main__':
     unittest.main()
