@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import itertools
+
 
 class SparseList(object):
     def __init__(self, arg, default_value=None):
@@ -68,3 +70,9 @@ class SparseList(object):
     def initialise_from_iterable(self, arg):
         self.elements = {k: v for k, v in enumerate(arg)}
         self.size = len(self.elements)
+
+    def __eq__(self, other):
+        return all(a == b for a, b in itertools.izip_longest(self, other))
+
+    def __ne__(self, other):
+        return not self.__eq__(other)

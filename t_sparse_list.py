@@ -152,5 +152,27 @@ class TestSparseList(unittest.TestCase):
         b = sparse_list.SparseList([4, 5, 6])
         self.assertEquals('[1, 2, 3, 4, 5, 6]', repr(a + b))
 
+    def test_equality(self):
+        a = sparse_list.SparseList([1, 2, 3])
+        b = sparse_list.SparseList([1, 2, 3])
+        self.assertTrue(a == b)
+        self.assertTrue(not a != b)
+        self.assertEquals(a, b)
+
+    def test_inequality_same_length(self):
+        a = sparse_list.SparseList([1, 2, 3])
+        b = sparse_list.SparseList([1, 0, 3])
+        self.assertTrue(a != b)
+        self.assertTrue(not a == b)
+        self.assertNotEqual(a, b)
+
+    def test_inequality_left_longer(self):
+        a = sparse_list.SparseList([1, 2, 3, 4])
+        b = sparse_list.SparseList([1, 2, 3])
+        self.assertTrue(a != b)
+        self.assertTrue(not (a == b))
+        self.assertNotEqual(a, b)
+
+
 if __name__ == '__main__':
     unittest.main()
