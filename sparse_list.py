@@ -27,6 +27,12 @@ class SparseList(object):
             i = slice(index).indices(self.size)[1]
             return self.elements.get(i, self.default)
 
+    def __delitem__(self, index):
+        try:
+            del self.elements[index]
+        except KeyError:
+            pass
+
     def __iter__(self):
         for index in xrange(self.size):
             yield self[index]

@@ -127,6 +127,16 @@ class TestSparseList(unittest.TestCase):
         sl[100] = 1
         self.assertEquals(101, len(sl))
 
+    def test_present_item_removal(self):
+        sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
+        del sl[0]
+        self.assertEquals('[0, 0, 0, 0, 1]', repr(sl))
+
+    def test_missing_item_removal(self):
+        sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
+        del sl[1]
+        self.assertEquals('[1, 0, 0, 0, 1]', repr(sl))
+
 
 if __name__ == '__main__':
     unittest.main()
