@@ -4,7 +4,7 @@ Inspired by http://stackoverflow.com/q/17522753/78845
 
 A "sparse list" is a list where most (say, more than 95% of) values will be None
 (or some other default)  and for reasons of memory efficiency you don't wish to
-store these (cf. [Sparse array](http://en.wikipedia.org/wiki/Sparse_array).
+store these (cf. [Sparse array](http://en.wikipedia.org/wiki/Sparse_array)).
 
 This implementation has a similar interface to Python's built-in list but
 stores the data in a dictionary to conserve memory.
@@ -13,14 +13,14 @@ stores the data in a dictionary to conserve memory.
 ## Installation
 
 `sparse_list` is available from [PyPI - the Python Package
-Index](https://pypi.python.org/pypi). Installation is simply:
+Index](https://pypi.python.org/pypi) (aka [The
+Cheeseshop](https://pypi.python.org/pypi)). Installation is simply:
 
     $ pip install sparse_list
 
 ## Usage
 
-    See the
-    [unit-tests](https://github.com/johnsyweb/python_sparse_list/blob/master/sparse_list/t_sparse_list.py)!
+See the [unit-tests](https://github.com/johnsyweb/python_sparse_list/blob/master/sparse_list/t_sparse_list.py)!
 
 ## Contributing
 
