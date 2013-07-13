@@ -38,14 +38,12 @@ class TestSparseList(unittest.TestCase):
 
     def test_iteration_empty(self):
         sl = sparse_list.SparseList(3)
-        l = [element for element in sl]
-        self.assertEquals([None, None, None], l)
+        self.assertEquals([None, None, None], list(sl))
 
     def test_iteration_populated(self):
         sl = sparse_list.SparseList(5)
         sl[1], sl[3] = 'a', 'b'
-        l = [element for element in sl]
-        self.assertEquals([None, 'a', None, 'b', None], l)
+        self.assertEquals([None, 'a', None, 'b', None], list(sl))
 
     def test_membership_absent(self):
         sl = sparse_list.SparseList(5)
@@ -68,19 +66,19 @@ class TestSparseList(unittest.TestCase):
             4: 6,
             3: 5,
         }, 0)
-        self.assertEquals('[0, 0, 0, 5, 6]', repr(sl))
+        self.assertEquals([0, 0, 0, 5, 6], sl)
 
     def test_initialisation_by_dict_with_non_numeric_key(self):
         self.assertRaises(ValueError, sparse_list.SparseList, {'a': 5})
 
     def test_initialisation_by_list(self):
         sl = sparse_list.SparseList([0, 1, 2, 4])
-        self.assertEquals('[0, 1, 2, 4]', repr(sl))
+        self.assertEquals([0, 1, 2, 4], sl)
 
     def test_initialisation_by_generator(self):
         gen = (x for x in (1, 2, 3))
         sl = sparse_list.SparseList(gen)
-        self.assertEquals('[1, 2, 3]', repr(sl))
+        self.assertEquals([1, 2, 3], sl)
 
     def test_access_with_negative_index(self):
         sl = sparse_list.SparseList([0, 1, 2, 4])
@@ -130,22 +128,22 @@ class TestSparseList(unittest.TestCase):
     def test_present_item_removal(self):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
         del sl[0]
-        self.assertEquals('[0, 0, 0, 0, 1]', repr(sl))
+        self.assertEquals([0, 0, 0, 0, 1], sl)
 
     def test_missing_item_removal(self):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
         del sl[1]
-        self.assertEquals('[1, 0, 0, 0, 1]', repr(sl))
+        self.assertEquals([1, 0, 0, 0, 1], sl)
 
     def test_slice_removal(self):
         sl = sparse_list.SparseList(xrange(10), None)
         del sl[3:5]
-        self.assertEquals('[0, 1, 2, None, None, 5, 6, 7, 8, 9]', repr(sl))
+        self.assertEquals([0, 1, 2, None, None, 5, 6, 7, 8, 9], sl)
 
     def test_append(self):
         sl = sparse_list.SparseList(1, 0)
         sl.append(1)
-        self.assertEquals('[0, 1]', repr(sl))
+        self.assertEquals([0, 1], sl)
 
     def test_clone(self):
         a = sparse_list.SparseList([1, 2, 3])
