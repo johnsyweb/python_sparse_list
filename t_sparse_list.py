@@ -270,5 +270,20 @@ class TestSparseList(unittest.TestCase):
         self.assertEquals(4, len(sl))
         self.assertEquals([1, 2, 3, 4], sl)
 
+    def test_remove_value(self):
+        sl = sparse_list.SparseList([1, 2, 3])
+        sl.remove(2)
+        self.assertEquals(3, len(sl))
+        self.assertEquals([1, None, 3], sl)
+
+    def test_remove_non_value(self):
+        sl = sparse_list.SparseList([1, 2, 3])
+        self.assertRaises(ValueError, sl.remove, 4)
+
+    def test_remove_default_value_does_nothing(self):
+        sl = sparse_list.SparseList(4, None)
+        sl.remove(None)
+        self.assertEquals([None, None, None, None], sl)
+
 if __name__ == '__main__':
     unittest.main()

@@ -119,3 +119,12 @@ class SparseList(object):
         del self[-1]
         self.size -= 1
         return value
+
+    def remove(self, value):
+        if value == self.default:
+            return
+        for k, v in self.elements.iteritems():
+            if v == value:
+                del self.elements[k]
+                return None
+        raise ValueError('{} not in SparseList'.format(value))
