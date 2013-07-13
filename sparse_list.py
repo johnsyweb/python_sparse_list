@@ -43,6 +43,14 @@ class SparseList(object):
     def __repr__(self):
         return '[{}]'.format(', '.join(map(str, self)))
 
+    def __add__(self, other):
+        map(self.append, other)
+        return self
+
+    def append(self, element):
+        self.elements[self.size] = element
+        self.size += 1
+
     def initialise_from_dict(self, arg):
         def convert_and_size(key):
             try:

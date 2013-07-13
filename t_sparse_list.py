@@ -137,6 +137,15 @@ class TestSparseList(unittest.TestCase):
         del sl[1]
         self.assertEquals('[1, 0, 0, 0, 1]', repr(sl))
 
+    def test_append(self):
+        sl = sparse_list.SparseList(1, 0)
+        sl.append(1)
+        self.assertEquals('[0, 1]', repr(sl))
+
+    def test_concatenation(self):
+        a = sparse_list.SparseList([1, 2, 3])
+        b = sparse_list.SparseList([4, 5, 6])
+        self.assertEquals('[1, 2, 3, 4, 5, 6]', repr(a + b))
 
 if __name__ == '__main__':
     unittest.main()
