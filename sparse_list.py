@@ -60,6 +60,8 @@ class SparseList(object):
         self.elements[self.size] = element
         self.size += 1
 
+    push = append
+
     def initialise_from_dict(self, arg):
         def convert_and_size(key):
             try:
@@ -111,3 +113,9 @@ class SparseList(object):
             if v == value:
                 return k
         return None
+
+    def pop(self):
+        value = self[-1]
+        del self[-1]
+        self.size -= 1
+        return value

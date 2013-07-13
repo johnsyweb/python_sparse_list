@@ -253,6 +253,22 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList([1, 2, 3], 0)
         self.assertEquals(None, sl.index(0))
 
+    def test_pop_no_value(self):
+        sl = sparse_list.SparseList(4)
+        self.assertEquals(None, sl.pop())
+
+    def test_pop_value(self):
+        sl = sparse_list.SparseList([1, 2, 3])
+        popped = sl.pop()
+        self.assertEquals(3, popped)
+        self.assertEquals(2, len(sl))
+        self.assertEquals([1, 2], sl)
+
+    def test_push_value(self):
+        sl = sparse_list.SparseList([1, 2, 3])
+        sl.push(4)
+        self.assertEquals(4, len(sl))
+        self.assertEquals([1, 2, 3, 4], sl)
 
 if __name__ == '__main__':
     unittest.main()
