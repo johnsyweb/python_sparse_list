@@ -49,6 +49,10 @@ class SparseList(object):
         return '[{}]'.format(', '.join(map(str, self)))
 
     def __add__(self, other):
+        result = self[:]
+        return result.__iadd__(other)
+
+    def __iadd__(self, other):
         map(self.append, other)
         return self
 
