@@ -102,14 +102,21 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList([0, 1, 2, 3, 4, 5, 6, ])
         self.assertEquals([1, 3, 5], sl[1:-1:2])
 
-    def test_slice_reversal_is_not_yet_supported(self):
-        sl = sparse_list.SparseList(1)
-        raised = False
-        try:
-            sl[::-1]
-        except ValueError:
-            raised = True
-        self.assert_(raised, 'Expected a ValueError')
+    def test_slice_reversal_full(self):
+        sl = sparse_list.SparseList([1, 2, 3])
+        self.assertEquals([3, 2, 1], sl[::-1])
+
+    def test_slice_reversal_empty(self):
+        sl = sparse_list.SparseList(4)
+        self.assertEquals([None, None, None, None], sl[::-1])
+
+    def test_reversed(self):
+        sl = sparse_list.SparseList([1, 2, 3])
+        self.assertEquals([3, 2, 1], list(reversed(sl)))
+
+    def test_sorted(self):
+        sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
+        self.assertEquals([0, 0, 0, 1, 1], list(sorted(sl)))
 
     def test_get_out_of_bounds(self):
         sl = sparse_list.SparseList(1)

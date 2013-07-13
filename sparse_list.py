@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import itertools
-
 
 class SparseList(object):
     def __init__(self, arg, default_value=None):
@@ -22,32 +20,22 @@ class SparseList(object):
         self.size = max(index + 1, self.size)
 
     def __getitem__(self, index):
-        def normalise(index):
-            if index and index < 0:
-                index += self.size
-            return index
-
         try:
-            if index.step and index.step < 0:
-                raise ValueError(
-                    'SparseList does not support negative steps [{}]'.format(
-                        index.step))
-            return list(itertools.islice(self,
-                                         normalise(index.start),
-                                         normalise(index.stop),
-                                         index.step))
+            s = slice(index.start, index.stop, index.step).indices(self.size)
+            return [self[i] for i in xrange(*s)]
         except AttributeError:
-            return self.elements.get(normalise(index), self.default)
+            i = slice(index).indices(self.size)[1]
+            return self.elements.get(i, self.default)
 
     def __iter__(self):
         for index in xrange(self.size):
-            yield self.elements.get(index, self.default)
+            yield self[index]
 
     def __contains__(self, index):
         return index in self.elements.itervalues()
 
     def __repr__(self):
-        return '[{}]'.format(', '.join([str(x) for x in self]))
+        return '[{}]'.format(', '.join(map(str, self)))
 
     def initialise_from_dict(self, arg):
         def convert_and_size(key):
