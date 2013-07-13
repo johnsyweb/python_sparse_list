@@ -86,3 +86,9 @@ class SparseList(object):
 
     def __ge__(self, other):
         return not self.__lt__(other)
+
+    def __mul__(self, multiplier):
+        result = []
+        for x in xrange(multiplier):
+            result += self[:]
+        return result

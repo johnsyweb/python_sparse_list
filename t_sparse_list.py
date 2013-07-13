@@ -213,6 +213,20 @@ class TestSparseList(unittest.TestCase):
         self.assertFalse(b <= a)
         self.assertFalse(b < a)
 
+    def test_multiply(self):
+        sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
+        sl4 = sl * 4
+        self.assertEquals([1, 0, 0, 0, 1], sl)
+        self.assertEquals(
+            [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1], sl4)
+        self.assertEquals(len(sl) * 4, len(sl4))
+
+    def test_multiply_in_place(self):
+        sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
+        sl *= 4
+        self.assertEquals(
+            [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1], sl)
+
 
 if __name__ == '__main__':
     unittest.main()
