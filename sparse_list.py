@@ -97,3 +97,6 @@ class SparseList(object):
         return sum(map(lambda v: v == value, self.elements.itervalues())) + (
             self.size - len(self.elements) if value == self.default else 0
         )
+
+    def extend(self, iterable):
+        self.__iadd__(iterable)
