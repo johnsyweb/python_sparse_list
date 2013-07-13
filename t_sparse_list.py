@@ -158,6 +158,9 @@ class TestSparseList(unittest.TestCase):
         self.assertTrue(a == b)
         self.assertTrue(not a != b)
         self.assertEquals(a, b)
+        self.assertTrue(b == a)
+        self.assertTrue(not b != a)
+        self.assertEquals(b, a)
 
     def test_inequality_same_length(self):
         a = sparse_list.SparseList([1, 2, 3])
@@ -165,6 +168,9 @@ class TestSparseList(unittest.TestCase):
         self.assertTrue(a != b)
         self.assertTrue(not a == b)
         self.assertNotEqual(a, b)
+        self.assertTrue(b != a)
+        self.assertTrue(not b == a)
+        self.assertNotEqual(b, a)
 
     def test_inequality_left_longer(self):
         a = sparse_list.SparseList([1, 2, 3, 4])
@@ -172,6 +178,25 @@ class TestSparseList(unittest.TestCase):
         self.assertTrue(a != b)
         self.assertTrue(not (a == b))
         self.assertNotEqual(a, b)
+        self.assertTrue(b != a)
+        self.assertTrue(not (b == a))
+        self.assertNotEqual(b, a)
+
+    def test_less_than(self):
+        a = sparse_list.SparseList([1, 2, 3, 0])
+        b = sparse_list.SparseList([1, 2, 4, 5])
+        self.assertTrue(a < b)
+        self.assertFalse(a == b)
+        self.assertFalse(a >= b)
+        self.assertFalse(a > b)
+
+    def test_greater_than(self):
+        a = sparse_list.SparseList([1, 2, 3, 0])
+        b = sparse_list.SparseList([1, 2, 4, 5])
+        self.assertTrue(b > a)
+        self.assertFalse(b == a)
+        self.assertFalse(b <= a)
+        self.assertFalse(b < a)
 
 
 if __name__ == '__main__':
