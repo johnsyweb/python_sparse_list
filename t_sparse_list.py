@@ -241,6 +241,18 @@ class TestSparseList(unittest.TestCase):
         sl.extend((4, 5, 6))
         self.assertEquals([1, 2, 3, 4, 5, 6], sl)
 
+    def test_index_value(self):
+        sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
+        self.assertEquals(0, sl.index(1))
+
+    def test_index_default_value(self):
+        sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
+        self.assertEquals(1, sl.index(0))
+
+    def test_index_absent_value(self):
+        sl = sparse_list.SparseList([1, 2, 3], 0)
+        self.assertEquals(None, sl.index(0))
+
 
 if __name__ == '__main__':
     unittest.main()

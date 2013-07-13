@@ -100,3 +100,14 @@ class SparseList(object):
 
     def extend(self, iterable):
         self.__iadd__(iterable)
+
+    def index(self, value):
+        if value == self.default:
+            for k, v in enumerate(self):
+                if v == value:
+                    return k
+            return None
+        for k, v in self.elements.iteritems():
+            if v == value:
+                return k
+        return None
