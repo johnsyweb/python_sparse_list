@@ -4,6 +4,20 @@ import itertools
 
 
 class SparseList(object):
+    '''
+    Inspired by http://stackoverflow.com/q/17522753/78845
+
+    A "sparse list" is a list where most (say, more than 95% of) values will be
+    None (or some other default)  and for reasons of memory efficiency you
+    don't wish to store these (cf. Sparse array
+    <http://en.wikipedia.org/wiki/Sparse_array>).
+
+    This implementation has a similar interface to Python's built-in list but
+    stores the data in a dictionary to conserve memory.
+
+    See accompanying unit-tests for documentiation.
+    '''
+
     def __init__(self, arg, default_value=None):
         self.default = default_value
         self.elements = {}
