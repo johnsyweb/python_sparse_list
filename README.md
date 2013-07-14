@@ -1,4 +1,4 @@
-# Sparse List
+# Sparse List [![Build Status](https://travis-ci.org/johnsyweb/python_sparse_list.png)](https://travis-ci.org/johnsyweb/python_sparse_list) 
 
 Inspired by http://stackoverflow.com/q/17522753/78845
 
@@ -27,7 +27,7 @@ See the [unit-tests](https://github.com/johnsyweb/python_sparse_list/blob/master
 1. Fork it
 1. Create your feature branch (`git checkout -b my-new-feature`)
 1. Commit your changes (`git commit -am 'Add some feature'`)
-1. Ensure the tests pass
+1. Ensure the tests pass for all Pythons in [`.travis.yml`](https://github.com/johnsyweb/python_sparse_list/blob/master/.travis.yml)
 1. Push to the branch (`git push origin my-new-feature`)
 1. Create new Pull Request
 
