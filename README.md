@@ -20,7 +20,7 @@ Cheeseshop](https://pypi.python.org/pypi)). Installation is simply:
 
 ## Usage
 
-See the [unit-tests](https://github.com/johnsyweb/python_sparse_list/blob/master/sparse_list/t_sparse_list.py)!
+See the [unit-tests](https://github.com/johnsyweb/python_sparse_list/blob/master/t_sparse_list.py)!
 
 ## Contributing
 
