@@ -1,8 +1,8 @@
 from distutils.core import setup
 setup(
     name='sparse_list',
-    packages=['sparse_list'],
-    version='0.1',
+    py_modules=['sparse_list'],
+    version='0.2',
     description='A list where most (>95%) values will be None (or default)',
     author='Pete Johns',
     author_email='paj+pypi@johnsy.com',
