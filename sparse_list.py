@@ -141,16 +141,19 @@ class SparseList(object):
             for k, v in enumerate(self):
                 if v == value:
                     return k
-            return None
+            raise ValueError('{} not in SparseList'.format(value))
         for k, v in self.elements.iteritems():
             if v == value:
                 return k
-        return None
+        raise ValueError('{} not in SparseList'.format(value))
 
     def pop(self):
         '''
         remove and return item at end of SparseList
+        Raises IndexError if list is empty.
         '''
+        if self.size < 1:
+            raise IndexError('pop from empty SparseList')
         value = self[-1]
         del self[-1]
         self.size -= 1
@@ -166,5 +169,5 @@ class SparseList(object):
         for k, v in self.elements.iteritems():
             if v == value:
                 del self.elements[k]
-                return None
+                return
         raise ValueError('{} not in SparseList'.format(value))

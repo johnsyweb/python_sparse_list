@@ -251,11 +251,15 @@ class TestSparseList(unittest.TestCase):
 
     def test_index_absent_value(self):
         sl = sparse_list.SparseList([1, 2, 3], 0)
-        self.assertEquals(None, sl.index(0))
+        self.assertRaises(ValueError, sl.index, 0)
 
     def test_pop_no_value(self):
         sl = sparse_list.SparseList(4)
         self.assertEquals(None, sl.pop())
+
+    def test_pop_empty(self):
+        sl = sparse_list.SparseList(0)
+        self.assertRaises(IndexError, sl.pop)
 
     def test_pop_value(self):
         sl = sparse_list.SparseList([1, 2, 3])
