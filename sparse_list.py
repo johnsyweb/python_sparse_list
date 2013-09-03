@@ -53,7 +53,8 @@ class SparseList(object):
             pass
 
     def __delslice__(self, start, stop):
-        map(self.__delitem__, xrange(start, stop))
+        for index in xrange(start, stop):
+            self.__delitem__(index)
 
     def __iter__(self):
         for index in xrange(self.size):
@@ -63,14 +64,15 @@ class SparseList(object):
         return index in self.elements.itervalues()
 
     def __repr__(self):
-        return '[{}]'.format(', '.join(map(str, self)))
+        return '[{}]'.format(', '.join([str(e) for e in self]))
 
     def __add__(self, other):
         result = self[:]
         return result.__iadd__(other)
 
     def __iadd__(self, other):
-        map(self.append, other)
+        for element in other:
+            self.append(element)
         return self
 
     def append(self, element):
@@ -116,10 +118,10 @@ class SparseList(object):
         return result
 
     def count(self, value):
-        return sum(map(lambda v: v == value, self.elements.itervalues())) + (
         '''
         return number of occurrences of value
         '''
+        return sum(v == value for v in self.elements.itervalues()) + (
             self.size - len(self.elements) if value == self.default else 0
         )
 
