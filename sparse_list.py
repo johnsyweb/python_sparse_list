@@ -1,21 +1,24 @@
 #!/usr/bin/env python
+'''
+Inspired by the post "Populating a sparse list with random 1's" on
+StackOverflow:
+
+    http://stackoverflow.com/q/17522753/78845
+
+A "sparse list" is a list where most (say, more than 95% of) values will be
+None (or some other default) and for reasons of memory efficiency you don't
+wish to store these. cf. Sparse array:
+
+    http://en.wikipedia.org/wiki/Sparse_array
+'''
 
 import itertools
 
 
 class SparseList(object):
     '''
-    Inspired by http://stackoverflow.com/q/17522753/78845
-
-    A "sparse list" is a list where most (say, more than 95% of) values will be
-    None (or some other default)  and for reasons of memory efficiency you
-    don't wish to store these (cf. Sparse array
-    <http://en.wikipedia.org/wiki/Sparse_array>).
-
     This implementation has a similar interface to Python's built-in list but
     stores the data in a dictionary to conserve memory.
-
-    See accompanying unit-tests for documentiation.
     '''
 
     def __init__(self, arg, default_value=None):
@@ -71,6 +74,9 @@ class SparseList(object):
         return self
 
     def append(self, element):
+        '''
+        append element, increasing size by exactly one
+        '''
         self.elements[self.size] = element
         self.size += 1
 
@@ -111,13 +117,24 @@ class SparseList(object):
 
     def count(self, value):
         return sum(map(lambda v: v == value, self.elements.itervalues())) + (
+        '''
+        return number of occurrences of value
+        '''
             self.size - len(self.elements) if value == self.default else 0
         )
 
     def extend(self, iterable):
+        '''
+        extend sparse_list by appending elements from the iterable
+        '''
         self.__iadd__(iterable)
 
     def index(self, value):
+        '''
+        return first index of value.
+        Raises ValueError if the value is not present.
+        '''
+
         if value == self.default:
             for k, v in enumerate(self):
                 if v == value:
@@ -129,12 +146,19 @@ class SparseList(object):
         return None
 
     def pop(self):
+        '''
+        remove and return item at end of SparseList
+        '''
         value = self[-1]
         del self[-1]
         self.size -= 1
         return value
 
     def remove(self, value):
+        '''
+        remove first occurrence of value.
+        Raises ValueError if the value is not present.
+        '''
         if value == self.default:
             return
         for k, v in self.elements.iteritems():
