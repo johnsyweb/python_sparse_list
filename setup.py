@@ -1,9 +1,10 @@
 from distutils.core import setup
+import os
 
-version = '0.4'
+version = '0.5'
 github_url = 'https://github.com/johnsyweb/python_sparse_list'
-paj='Pete Johns'
-paj_email='paj+pypi@johnsy.com'
+paj = 'Pete Johns'
+paj_email = 'paj+pypi@johnsy.com'
 
 setup(
     name='sparse_list',
@@ -30,8 +31,8 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Utilities",
     ],
-    long_description=('{}\n'.format('-' * 80).join(
-        [open(f).read() for f in ('README.rst', 'LICENSE.txt')]
+    long_description=(''.join(
+        [open(f).read() for f in ('README.rst',) if os.path.isfile(f)]
     )),
     license='MIT'
 )
