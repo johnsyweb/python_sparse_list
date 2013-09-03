@@ -16,7 +16,7 @@ but stores the data in a dictionary to conserve memory.
 Installation
 ------------
 
-```sparse_list`` <https://pypi.python.org/pypi/sparse_list>`__ is
+`sparse_list <https://pypi.python.org/pypi/sparse_list>`__ is
 available from `PyPI - the Python Package
 Index <https://pypi.python.org/pypi>`__ (aka `The
 Cheeseshop <https://pypi.python.org/pypi>`__).
@@ -40,7 +40,7 @@ Contributing
 2. Create your feature branch (``git checkout -b my-new-feature``)
 3. Commit your changes (``git commit -am 'Add some feature'``)
 4. Ensure the tests pass for all Pythons in
-   ```.travis.yml`` <https://github.com/johnsyweb/python_sparse_list/blob/master/.travis.yml>`__
+   `.travis.yml <https://github.com/johnsyweb/python_sparse_list/blob/master/.travis.yml>`__
 5. Push to the branch (``git push origin my-new-feature``)
 6. Create new Pull Request
 
