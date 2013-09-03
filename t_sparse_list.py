@@ -280,6 +280,12 @@ class TestSparseList(unittest.TestCase):
         self.assertEquals(3, len(sl))
         self.assertEquals([1, None, 3], sl)
 
+    def test_remove_only_first_value(self):
+        sl = sparse_list.SparseList([2, 2, 3])
+        sl.remove(2)
+        self.assertEquals(3, len(sl))
+        self.assertEquals([None, 2, 3], sl)
+
     def test_remove_non_value(self):
         sl = sparse_list.SparseList([1, 2, 3])
         self.assertRaises(ValueError, sl.remove, 4)
