@@ -1,6 +1,6 @@
 from distutils.core import setup
 
-version = '0.3'
+version = '0.4'
 github_url = 'https://github.com/johnsyweb/python_sparse_list'
 paj='Pete Johns'
 paj_email='paj+pypi@johnsy.com'
