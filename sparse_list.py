@@ -113,7 +113,7 @@ class SparseList(object):
 
     def __mul__(self, multiplier):
         result = []
-        for x in xrange(multiplier):
+        for _ in xrange(multiplier):
             result += self[:]
         return result
 
