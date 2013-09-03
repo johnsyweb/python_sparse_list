@@ -27,9 +27,9 @@ class SparseList(object):
         if isinstance(arg, int):
             self.size = int(arg)
         elif isinstance(arg, dict):
-            self.initialise_from_dict(arg)
+            self.__initialise_from_dict(arg)
         else:
-            self.initialise_from_iterable(arg)
+            self.__initialise_from_iterable(arg)
 
     def __len__(self):
         return self.size
@@ -82,8 +82,8 @@ class SparseList(object):
 
     push = append
 
-    def initialise_from_dict(self, arg):
-        def convert_and_size(key):
+    def __initialise_from_dict(self, arg):
+        def __convert_and_size(key):
             try:
                 key = int(key)
             except ValueError:
@@ -91,9 +91,9 @@ class SparseList(object):
             self.size = max(key + 1, self.size)
             return key
         self.size = 0
-        self.elements = {convert_and_size(k): v for k, v in arg.iteritems()}
+        self.elements = {__convert_and_size(k): v for k, v in arg.iteritems()}
 
-    def initialise_from_iterable(self, arg):
+    def __initialise_from_iterable(self, arg):
         self.elements = {k: v for k, v in enumerate(arg)}
         self.size = len(self.elements)
 
