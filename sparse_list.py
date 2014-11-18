@@ -12,9 +12,9 @@ wish to store these. cf. Sparse array:
     http://en.wikipedia.org/wiki/Sparse_array
 '''
 
-import itertools
 from future.builtins import range
 from six import iteritems
+from six.moves import zip_longest
 
 
 class SparseList(object):
@@ -102,13 +102,13 @@ class SparseList(object):
         self.size = len(self.elements)
 
     def __eq__(self, other):
-        return all(a == b for a, b in itertools.izip_longest(self, other))
+        return all(a == b for a, b in zip_longest(self, other))
 
     def __ne__(self, other):
         return not self.__eq__(other)
 
     def __lt__(self, other):
-        return any(a < b for a, b in itertools.izip_longest(self, other))
+        return any(a < b for a, b in zip_longest(self, other))
 
     def __ge__(self, other):
         return not self.__lt__(other)
