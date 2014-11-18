@@ -13,6 +13,7 @@ wish to store these. cf. Sparse array:
 '''
 
 import itertools
+from future.builtins import range
 
 
 class SparseList(object):
@@ -41,7 +42,7 @@ class SparseList(object):
     def __getitem__(self, index):
         try:
             s = slice(index.start, index.stop, index.step).indices(self.size)
-            return [self[i] for i in xrange(*s)]
+            return [self[i] for i in range(*s)]
         except AttributeError:
             i = slice(index).indices(self.size)[1]
             return self.elements.get(i, self.default)
@@ -53,11 +54,11 @@ class SparseList(object):
             pass
 
     def __delslice__(self, start, stop):
-        for index in xrange(start, stop):
+        for index in range(start, stop):
             self.__delitem__(index)
 
     def __iter__(self):
-        for index in xrange(self.size):
+        for index in range(self.size):
             yield self[index]
 
     def __contains__(self, index):
@@ -113,7 +114,7 @@ class SparseList(object):
 
     def __mul__(self, multiplier):
         result = []
-        for _ in xrange(multiplier):
+        for _ in range(multiplier):
             result += self[:]
         return result
 
