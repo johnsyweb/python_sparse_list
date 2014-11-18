@@ -1,7 +1,8 @@
 language: python
 python:
-  - "2.7"
-  - "pypy"
+  - 2.7
+  - 3.3
+  - pypy
 install: 
   - pip install coverage
 script: nosetests --with-coverage ./t_sparse_list.py
