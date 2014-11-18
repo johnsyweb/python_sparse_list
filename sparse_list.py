@@ -14,6 +14,7 @@ wish to store these. cf. Sparse array:
 
 import itertools
 from future.builtins import range
+from six import iteritems
 
 
 class SparseList(object):
@@ -94,7 +95,7 @@ class SparseList(object):
             self.size = max(key + 1, self.size)
             return key
         self.size = 0
-        self.elements = {__convert_and_size(k): v for k, v in arg.iteritems()}
+        self.elements = {__convert_and_size(k): v for k, v in iteritems(arg)}
 
     def __initialise_from_iterable(self, arg):
         self.elements = {k: v for k, v in enumerate(arg)}
@@ -143,7 +144,7 @@ class SparseList(object):
                 if v == value:
                     return k
             raise ValueError('{} not in SparseList'.format(value))
-        for k, v in self.elements.iteritems():
+        for k, v in iteritems(self.elements):
             if v == value:
                 return k
         raise ValueError('{} not in SparseList'.format(value))
@@ -167,7 +168,7 @@ class SparseList(object):
         '''
         if value == self.default:
             return
-        for k, v in self.elements.iteritems():
+        for k, v in iteritems(self.elements):
             if v == value:
                 del self.elements[k]
                 return
