@@ -13,7 +13,7 @@ wish to store these. cf. Sparse array:
 '''
 
 from future.builtins import range
-from six import iteritems
+from six import iteritems, itervalues
 from six.moves import zip_longest
 
 
@@ -63,7 +63,7 @@ class SparseList(object):
             yield self[index]
 
     def __contains__(self, index):
-        return index in self.elements.itervalues()
+        return index in itervalues(self.elements)
 
     def __repr__(self):
         return '[{}]'.format(', '.join([str(e) for e in self]))
@@ -123,7 +123,7 @@ class SparseList(object):
         '''
         return number of occurrences of value
         '''
-        return sum(v == value for v in self.elements.itervalues()) + (
+        return sum(v == value for v in itervalues(self.elements)) + (
             self.size - len(self.elements) if value == self.default else 0
         )
 
