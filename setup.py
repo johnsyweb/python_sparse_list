@@ -26,6 +26,10 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development",
         "Topic :: Software Development :: Libraries",
         "Topic :: Software Development :: Libraries :: Python Modules",
@@ -34,5 +38,6 @@ setup(
     long_description=(''.join(
         [open(f).read() for f in ('README.rst',) if os.path.isfile(f)]
     )),
+    install_requires('future', 'six'),
     license='MIT'
 )

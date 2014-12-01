@@ -1,0 +1,4 @@
+coverage
+future
+nose
+six

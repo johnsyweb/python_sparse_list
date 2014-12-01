@@ -12,7 +12,9 @@ wish to store these. cf. Sparse array:
     http://en.wikipedia.org/wiki/Sparse_array
 '''
 
-import itertools
+from future.builtins import range
+from six import iteritems, itervalues
+from six.moves import zip_longest
 
 
 class SparseList(object):
@@ -41,27 +43,31 @@ class SparseList(object):
     def __getitem__(self, index):
         try:
             s = slice(index.start, index.stop, index.step).indices(self.size)
-            return [self[i] for i in xrange(*s)]
+            return [self[i] for i in range(*s)]
         except AttributeError:
             i = slice(index).indices(self.size)[1]
             return self.elements.get(i, self.default)
 
-    def __delitem__(self, index):
+    def __delitem__(self, item):
         try:
-            del self.elements[index]
+            del self.elements[item]
+        except TypeError:
+            s = slice(item.start, item.stop, item.step).indices(self.size)
+            for i in range(*s):
+                del self.elements[i]
         except KeyError:
             pass
 
     def __delslice__(self, start, stop):
-        for index in xrange(start, stop):
+        for index in range(start, stop):
             self.__delitem__(index)
 
     def __iter__(self):
-        for index in xrange(self.size):
+        for index in range(self.size):
             yield self[index]
 
     def __contains__(self, index):
-        return index in self.elements.itervalues()
+        return index in itervalues(self.elements)
 
     def __repr__(self):
         return '[{}]'.format(', '.join([str(e) for e in self]))
@@ -93,27 +99,27 @@ class SparseList(object):
             self.size = max(key + 1, self.size)
             return key
         self.size = 0
-        self.elements = {__convert_and_size(k): v for k, v in arg.iteritems()}
+        self.elements = {__convert_and_size(k): v for k, v in iteritems(arg)}
 
     def __initialise_from_iterable(self, arg):
         self.elements = {k: v for k, v in enumerate(arg)}
         self.size = len(self.elements)
 
     def __eq__(self, other):
-        return all(a == b for a, b in itertools.izip_longest(self, other))
+        return all(a == b for a, b in zip_longest(self, other))
 
     def __ne__(self, other):
         return not self.__eq__(other)
 
     def __lt__(self, other):
-        return any(a < b for a, b in itertools.izip_longest(self, other))
+        return any(a < b for a, b in zip_longest(self, other))
 
     def __ge__(self, other):
         return not self.__lt__(other)
 
     def __mul__(self, multiplier):
         result = []
-        for _ in xrange(multiplier):
+        for _ in range(multiplier):
             result += self[:]
         return result
 
@@ -121,7 +127,7 @@ class SparseList(object):
         '''
         return number of occurrences of value
         '''
-        return sum(v == value for v in self.elements.itervalues()) + (
+        return sum(v == value for v in itervalues(self.elements)) + (
             self.size - len(self.elements) if value == self.default else 0
         )
 
@@ -142,7 +148,7 @@ class SparseList(object):
                 if v == value:
                     return k
             raise ValueError('{} not in SparseList'.format(value))
-        for k, v in self.elements.iteritems():
+        for k, v in iteritems(self.elements):
             if v == value:
                 return k
         raise ValueError('{} not in SparseList'.format(value))
@@ -166,7 +172,7 @@ class SparseList(object):
         '''
         if value == self.default:
             return
-        for k, v in self.elements.iteritems():
+        for k, v in iteritems(self.elements):
             if v == value:
                 del self.elements[k]
                 return

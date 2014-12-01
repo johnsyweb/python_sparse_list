@@ -2,6 +2,7 @@
 
 import unittest
 import sparse_list
+from future.builtins import range
 
 
 class TestSparseList(unittest.TestCase):
@@ -136,7 +137,7 @@ class TestSparseList(unittest.TestCase):
         self.assertEquals([1, 0, 0, 0, 1], sl)
 
     def test_slice_removal(self):
-        sl = sparse_list.SparseList(xrange(10), None)
+        sl = sparse_list.SparseList(range(10), None)
         del sl[3:5]
         self.assertEquals([0, 1, 2, None, None, 5, 6, 7, 8, 9], sl)
 
