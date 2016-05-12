@@ -109,6 +109,17 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList(4)
         self.assertEquals([None, None, None, None], sl[::-1])
 
+    def test_slice_with_list_read(self):
+        sl = sparse_list.SparseList([1, 2, 3, 4, 5])
+        ip = [0, 2, 4]
+        self.assertEquals([1, 3, 5], sl[ip])
+
+    def test_slice_with_list_write(self):
+        sl = sparse_list.SparseList([1, 2, 3, 4, 5])
+        ip = [0, 2, 4]
+        sl[ip] = [6, 7, 8]
+        self.assertEquals([6, 2, 7, 4, 8], list(sl))
+
     def test_reversed(self):
         sl = sparse_list.SparseList([1, 2, 3])
         self.assertEquals([3, 2, 1], list(reversed(sl)))
