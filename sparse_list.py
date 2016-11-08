@@ -58,6 +58,11 @@ class SparseList(object):
         except KeyError:
             pass
 
+    def __setslice__(self, start, stop, vals):
+        for index in range(start, stop):
+            self.elements[index] = vals[index - start]
+        self.size = max(stop, self.size)
+    
     def __delslice__(self, start, stop):
         for index in range(start, stop):
             self.__delitem__(index)
