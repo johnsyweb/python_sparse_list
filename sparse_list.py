@@ -12,7 +12,11 @@ wish to store these. cf. Sparse array:
     http://en.wikipedia.org/wiki/Sparse_array
 '''
 
-from future.builtins import range
+try:
+    from future.builtins import range
+except ImportError:
+    # If they don't have future, then allow xrange.
+    range = xrange
 from six import iteritems, itervalues
 from six.moves import zip_longest
 
