@@ -41,16 +41,26 @@ class SparseList(object):
         return self.size
 
     def __setitem__(self, index, value):
-        self.elements[index] = value
-        self.size = max(index + 1, self.size)
+        try:
+            for i, v in enumerate(index):
+                self.elements[v] = value[i]
+                self.size = max(v + 1, self.size)
+        except TypeError:
+            self.elements[index] = value
+            self.size = max(index + 1, self.size)
 
     def __getitem__(self, index):
-        try:
+        try:  # [start:stop:step]
             s = slice(index.start, index.stop, index.step).indices(self.size)
             return [self[i] for i in range(*s)]
         except AttributeError:
-            i = slice(index).indices(self.size)[1]
-            return self.elements.get(i, self.default)
+            pass
+        try:  # [iterable]
+            return [self[i] for i in index]
+        except TypeError:
+            pass
+        i = slice(index).indices(self.size)[1]
+        return self.elements.get(i, self.default)
 
     def __delitem__(self, item):
         try:
@@ -87,7 +97,7 @@ class SparseList(object):
 
     def append(self, element):
         '''
-        append element, increasing size by exactly one
+        Append element, increasing size by exactly one.
         '''
         self.elements[self.size] = element
         self.size += 1
@@ -129,7 +139,7 @@ class SparseList(object):
 
     def count(self, value):
         '''
-        return number of occurrences of value
+        Return the number of occurrences of value.
         '''
         return sum(v == value for v in itervalues(self.elements)) + (
             self.size - len(self.elements) if value == self.default else 0
@@ -137,14 +147,14 @@ class SparseList(object):
 
     def extend(self, iterable):
         '''
-        extend sparse_list by appending elements from the iterable
+        Extend sparse_list by appending elements from the iterable.
         '''
         self.__iadd__(iterable)
 
     def index(self, value):
         '''
-        return first index of value.
-        Raises ValueError if the value is not present.
+        Return the first found index of value.
+        Raises ValueError when the value is not present.
         '''
 
         if value == self.default:
@@ -159,8 +169,8 @@ class SparseList(object):
 
     def pop(self):
         '''
-        remove and return item at end of SparseList
-        Raises IndexError if list is empty.
+        Remove and return item at end of SparseList.
+        Raises IndexError when the list is empty.
         '''
         if self.size < 1:
             raise IndexError('pop from empty SparseList')
@@ -171,8 +181,8 @@ class SparseList(object):
 
     def remove(self, value):
         '''
-        remove first occurrence of value.
-        Raises ValueError if the value is not present.
+        Remove first occurrence of value.
+        Raises ValueError when the value is not present.
         '''
         if value == self.default:
             return
