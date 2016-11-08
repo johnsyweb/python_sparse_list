@@ -4,4 +4,4 @@ python:
   - 3.3
   - pypy
 install: pip install -r requirements.txt
-script: nosetests --with-coverage ./t_sparse_list.py
+script: nosetests --with-coverage --exe
