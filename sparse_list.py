@@ -47,7 +47,7 @@ class SparseList(object):
             if index.start + len(value) > len(self):
                 self.size = index.start + len(value)
             # Iterate through the values, setting each one.
-            for idx in xrange(*index.indices(len(self))):
+            for idx in range(*index.indices(len(self))):
                 self.elements[idx] = value[vals_idx]
                 vals_idx += 1
         else:
