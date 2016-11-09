@@ -37,8 +37,22 @@ class SparseList(object):
         return self.size
 
     def __setitem__(self, index, value):
-        self.elements[index] = value
-        self.size = max(index + 1, self.size)
+        if isinstance(index, slice):
+            vals_idx = 0
+            # Inserting past the end appends.
+            if index.start > len(self):
+                index = slice(len(self), len(self) + len(value))
+                self.size += len(value)
+            # Inserting from the middle past the end also appends.
+            if index.start + len(value) > len(self):
+                self.size = index.start + len(value)
+            # Iterate through the values, setting each one.
+            for idx in xrange(*index.indices(len(self))):
+                self.elements[idx] = value[vals_idx]
+                vals_idx += 1
+        else:
+            self.elements[index] = value
+            self.size = max(index + 1, self.size)
 
     def __getitem__(self, index):
         try:
@@ -59,9 +73,8 @@ class SparseList(object):
             pass
 
     def __setslice__(self, start, stop, vals):
-        for index in range(start, stop):
-            self.elements[index] = vals[index - start]
-        self.size = max(stop, self.size)
+        # __setslice__ is deprecated, but kept here for backwards compatability.
+        return self.__setitem__(slice(start, stop), vals)
     
     def __delslice__(self, start, stop):
         for index in range(start, stop):
