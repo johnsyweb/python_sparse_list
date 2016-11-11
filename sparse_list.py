@@ -42,14 +42,12 @@ class SparseList(object):
 
     def __setitem__(self, index, value):
         if isinstance(index, slice):
-            vals_idx = 0
-
             if index.start + len(value) > len(self):
                 self.size = index.start + len(value)
 
-            for idx in range(*index.indices(len(self))):
-                self.elements[idx] = value[vals_idx]
-                vals_idx += 1
+            for v, idx in enumerate(range(*index.indices(len(self)))):
+                self.elements[idx] = value[v]
+
         else:
             self.elements[index] = value
             self.size = max(index + 1, self.size)
