@@ -13,10 +13,11 @@ wish to store these. cf. Sparse array:
 '''
 
 try:
-    from future.builtins import range
-except ImportError:
-    # If they don't have future, then allow xrange.
-    range = xrange
+    xrange
+except NameError:
+    # On Python 3, range() is equivalent to Python 2's xrange()
+    xrange = range
+
 from six import iteritems, itervalues
 from six.moves import zip_longest
 
@@ -41,30 +42,47 @@ class SparseList(object):
         return self.size
 
     def __setitem__(self, index, value):
-        self.elements[index] = value
-        self.size = max(index + 1, self.size)
+        try:
+            if index.start:
+                self.size = index.start + len(value)
+            s = slice(index.start, index.stop, index.step).indices(self.size)
+            for v, i in enumerate(range(*s)):
+                self.__setitem__(i, value[v])
+        except AttributeError:
+            self.elements[index] = value
+            self.size = max(index + 1, self.size)
 
     def __getitem__(self, index):
         try:
             s = slice(index.start, index.stop, index.step).indices(self.size)
-            return [self[i] for i in range(*s)]
+            return [self[i] for i in xrange(*s)]
         except AttributeError:
             i = slice(index).indices(self.size)[1]
             return self.elements.get(i, self.default)
 
+    def __setslice__(self, start, stop, vals):
+        '''
+        __setslice__ is deprecated, but kept here for backwards compatibility
+        '''
+        return self.__setitem__(slice(start, stop), vals)
+
     def __delitem__(self, item):
-        try:
-            del self.elements[item]
-        except TypeError:
-            s = slice(item.start, item.stop, item.step).indices(self.size)
-            for i in range(*s):
+        if isinstance(item, slice):
+            indices = xrange(*item.indices(self.size))
+        else:
+            indices = (item, )
+
+        for i in indices:
+            try:
                 del self.elements[i]
-        except KeyError:
-            pass
+            except KeyError:
+                pass
 
     def __delslice__(self, start, stop):
-        for index in range(start, stop):
-            self.__delitem__(index)
+        '''
+        __delslice__ is deprecated, but kept here for backwards compatibility
+        '''
+        return self.__delitem__(slice(start, stop))
 
     def __iter__(self):
         for index in range(self.size):

@@ -31,7 +31,7 @@ Usage
 -----
 
 See the
-`unit-tests <https://github.com/johnsyweb/python_sparse_list/blob/master/t_sparse_list.py>`__!
+`unit-tests <https://github.com/johnsyweb/python_sparse_list/blob/master/test_sparse_list.py>`__!
 
 Contributing
 ------------
