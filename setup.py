@@ -38,6 +38,6 @@ setup(
     long_description=(''.join(
         [open(f).read() for f in ('README.rst',) if os.path.isfile(f)]
     )),
-    install_requires('future', 'six'),
+    install_requires('six'),
     license='MIT'
 )
