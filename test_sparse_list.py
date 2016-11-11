@@ -316,5 +316,10 @@ class TestSparseList(unittest.TestCase):
         sl[3:] = [6, 7, 8]
         self.assertEquals([None, None, None, 6, 7, 8], sl)
 
+    def test_set_slice_with_step(self):
+        sl = sparse_list.SparseList(6, None)
+        sl[::2] = [1, 2, 3]
+        self.assertEquals([1, None, 2, None, 3, None], sl)
+
 if __name__ == '__main__':
     unittest.main()
