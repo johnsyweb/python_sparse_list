@@ -300,16 +300,19 @@ class TestSparseList(unittest.TestCase):
         sl.remove(None)
         self.assertEquals([None, None, None, None], sl)
 
-    def test_set_slice(self):
+    def test_set_slice_observes_stop(self):
         sl = sparse_list.SparseList(4, None)
-        # Only the first two should be assigned.
         sl[0:2] = [1, 2, 3]
         self.assertEquals([1, 2, None, None], sl)
-        # Like a normal list, when we assign past the end, it appends.
+
+    def test_set_slice_resizes(self):
+        sl = sparse_list.SparseList([1, 2, None, None])
         sl[100:] = [4, 5]
         self.assertEquals([1, 2, None, None, 4, 5], sl)
         self.assertEquals(len(sl), 6)
-        # Now assign from the middle, past the end.
+
+    def test_set_slice_extends_past_end(self):
+        sl = sparse_list.SparseList([1, 2, None, None, 4, 5])
         sl[5:] = [6, 7, 8]
         self.assertEquals([1, 2, None, None, 4, 6, 7, 8], sl)
 
