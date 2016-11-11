@@ -77,9 +77,11 @@ class SparseList(object):
             pass
 
     def __setslice__(self, start, stop, vals):
-        # __setslice__ is deprecated, but kept here for backwards compatability.
+        '''
+        __setslice__ is deprecated, but kept here for backwards compatibility
+        '''
         return self.__setitem__(slice(start, stop), vals)
-    
+
     def __delslice__(self, start, stop):
         for index in range(start, stop):
             self.__delitem__(index)
