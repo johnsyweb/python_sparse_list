@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 import os
 
 version = '0.6'
@@ -38,6 +38,6 @@ setup(
     long_description=(''.join(
         [open(f).read() for f in ('README.rst',) if os.path.isfile(f)]
     )),
-    install_requires('six'),
+    install_requires=['six'],
     license='MIT'
 )
