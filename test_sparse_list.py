@@ -306,15 +306,15 @@ class TestSparseList(unittest.TestCase):
         self.assertEquals([1, 2, None, None], sl)
 
     def test_set_slice_resizes(self):
-        sl = sparse_list.SparseList([1, 2, None, None])
+        sl = sparse_list.SparseList(4, None)
         sl[100:] = [4, 5]
-        self.assertEquals([1, 2, None, None, 4, 5], sl)
+        self.assertEquals([None, None, None, None, 4, 5], sl)
         self.assertEquals(len(sl), 6)
 
     def test_set_slice_extends_past_end(self):
-        sl = sparse_list.SparseList([1, 2, None, None, 4, 5])
-        sl[5:] = [6, 7, 8]
-        self.assertEquals([1, 2, None, None, 4, 6, 7, 8], sl)
+        sl = sparse_list.SparseList(5, None)
+        sl[3:] = [6, 7, 8]
+        self.assertEquals([None, None, None, 6, 7, 8], sl)
 
 if __name__ == '__main__':
     unittest.main()
