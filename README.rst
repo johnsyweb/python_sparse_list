@@ -54,5 +54,15 @@ have something to say, you can contact
 `Twitter <http://twitter.com/johnsyweb/>`__ and
 `GitHub <https://github.com/johnsyweb/>`__.
 
+
+Many thanks
+-----------
+
+I'm grateful for contributions to what was a solo project (hooray for
+`GitHub :octocat:) <http://github.com/>`__! If you'd like to thank the
+contributors, you can find their details here:
+
+https://github.com/johnsyweb/python_sparse_list/graphs/contributors
+
 .. |Build Status| image:: https://travis-ci.org/johnsyweb/python_sparse_list.png
    :target: https://travis-ci.org/johnsyweb/python_sparse_list
