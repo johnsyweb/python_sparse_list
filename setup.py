@@ -1,7 +1,7 @@
-from distutils.core import setup
+from setuptools import setup
 import os
 
-version = '0.5'
+version = '0.6'
 github_url = 'https://github.com/johnsyweb/python_sparse_list'
 paj = 'Pete Johns'
 paj_email = 'paj+pypi@johnsy.com'
@@ -38,6 +38,6 @@ setup(
     long_description=(''.join(
         [open(f).read() for f in ('README.rst',) if os.path.isfile(f)]
     )),
-    install_requires('future', 'six'),
+    install_requires=['six'],
     license='MIT'
 )

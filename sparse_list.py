@@ -46,7 +46,7 @@ class SparseList(object):
             if index.start:
                 self.size = index.start + len(value)
             s = slice(index.start, index.stop, index.step).indices(self.size)
-            for v, i in enumerate(range(*s)):
+            for v, i in enumerate(xrange(*s)):
                 self.__setitem__(i, value[v])
         except AttributeError:
             self.elements[index] = value
@@ -85,7 +85,7 @@ class SparseList(object):
         return self.__delitem__(slice(start, stop))
 
     def __iter__(self):
-        for index in range(self.size):
+        for index in xrange(self.size):
             yield self[index]
 
     def __contains__(self, index):
@@ -141,7 +141,7 @@ class SparseList(object):
 
     def __mul__(self, multiplier):
         result = []
-        for _ in range(multiplier):
+        for _ in xrange(multiplier):
             result += self[:]
         return result
 

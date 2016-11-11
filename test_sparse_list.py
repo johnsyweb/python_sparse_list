@@ -142,22 +142,22 @@ class TestSparseList(unittest.TestCase):
         self.assertEqual([1, 0, 0, 0, 1], sl)
 
     def test_slice_removal(self):
-        sl = sparse_list.SparseList(range(10), None)
+        sl = sparse_list.SparseList(xrange(10), None)
         del sl[3:5]
         self.assertEqual([0, 1, 2, None, None, 5, 6, 7, 8, 9], sl)
 
     def test_unbounded_head_slice_removal(self):
-        sl = sparse_list.SparseList(range(10), None)
+        sl = sparse_list.SparseList(xrange(10), None)
         del sl[:3]
         self.assertEqual([None, None, None, 3, 4, 5, 6, 7, 8, 9], sl)
 
     def test_unbounded_tail_slice_removal(self):
-        sl = sparse_list.SparseList(range(10), None)
+        sl = sparse_list.SparseList(xrange(10), None)
         del sl[5:]
         self.assertEqual([0, 1, 2, 3, 4, None, None, None, None, None], sl)
 
     def test_stepped_slice_removal(self):
-        sl = sparse_list.SparseList(range(6), None)
+        sl = sparse_list.SparseList(xrange(6), None)
         del sl[::2]
         self.assertEqual([None, 1, None, 3, None, 5], sl)
 

@@ -1,5 +1,5 @@
-`Sparse List <https://pypi.python.org/pypi/sparse_list>`__ |PyPi version| |PyPi downloads| |Build Status|
-=========================================================================================================
+`Sparse List <https://pypi.python.org/pypi/sparse_list>`__ |Build Status|
+=========================================================================
 
 Inspired by the post `Populating a sparse list with random
 1's <http://stackoverflow.com/q/17522753/78845>`__ on
@@ -54,9 +54,15 @@ have something to say, you can contact
 `Twitter <http://twitter.com/johnsyweb/>`__ and
 `GitHub <https://github.com/johnsyweb/>`__.
 
-.. |PyPi version| image:: https://pypip.in/v/sparse_list/badge.png
-   :target: https://crate.io/packages/sparse_list/
-.. |PyPi downloads| image:: https://pypip.in/d/sparse_list/badge.png
-   :target: https://crate.io/packages/sparse_list/
+
+Many thanks
+-----------
+
+I'm grateful for contributions to what was a solo project (hooray for
+`GitHub :octocat:) <http://github.com/>`__! If you'd like to thank the
+contributors, you can find their details here:
+
+https://github.com/johnsyweb/python_sparse_list/graphs/contributors
+
 .. |Build Status| image:: https://travis-ci.org/johnsyweb/python_sparse_list.png
    :target: https://travis-ci.org/johnsyweb/python_sparse_list

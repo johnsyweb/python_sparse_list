@@ -1,4 +1,3 @@
 coverage
-future
 nose
 six
