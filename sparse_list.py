@@ -43,14 +43,10 @@ class SparseList(object):
     def __setitem__(self, index, value):
         if isinstance(index, slice):
             vals_idx = 0
-            # Inserting past the end appends.
-            if index.start > len(self):
-                index = slice(len(self), len(self) + len(value))
-                self.size += len(value)
-            # Inserting from the middle past the end also appends.
+
             if index.start + len(value) > len(self):
                 self.size = index.start + len(value)
-            # Iterate through the values, setting each one.
+
             for idx in range(*index.indices(len(self))):
                 self.elements[idx] = value[vals_idx]
                 vals_idx += 1
