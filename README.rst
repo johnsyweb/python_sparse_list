@@ -1,4 +1,4 @@
-`Sparse List <https://pypi.python.org/pypi/sparse_list>`__ |Build Status|
+`Sparse List <https://pypi.org/project/sparse_list/>`__ |Build Status|
 =========================================================================
 
 Inspired by the post `Populating a sparse list with random
@@ -16,10 +16,8 @@ but stores the data in a dictionary to conserve memory.
 Installation
 ------------
 
-`sparse_list <https://pypi.python.org/pypi/sparse_list>`__ is
-available from `PyPI - the Python Package
-Index <https://pypi.python.org/pypi>`__ (aka `The
-Cheeseshop <https://pypi.python.org/pypi>`__).
+`sparse_list <https://pypi.org/project/sparse_list/>`__ is
+available from `The Python Package Index (PyPI) <https://pypi.org/>`__ .
 
 Installation is simply:
 
