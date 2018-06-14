@@ -114,6 +114,13 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList(4)
         self.assertEqual([None, None, None, None], sl[::-1])
 
+    def test_slice_list_size(self):
+        initial_size = 20
+        sl = sparse_list.SparseList(initial_size)
+        sample_tuple = (1, 2, 3, 4)
+        sl[2:2+len(sample_tuple)] = sample_tuple
+        self.assertEqual(len(sl), initial_size)
+
     def test_reversed(self):
         sl = sparse_list.SparseList([1, 2, 3])
         self.assertEqual([3, 2, 1], list(reversed(sl)))
