@@ -44,7 +44,7 @@ class SparseList(object):
     def __setitem__(self, index, value):
         try:
             if index.start:
-                self.size = index.start + len(value)
+                self.size = max(self.size, index.start + len(value))
             s = slice(index.start, index.stop, index.step).indices(self.size)
             for v, i in enumerate(xrange(*s)):
                 self.__setitem__(i, value[v])
