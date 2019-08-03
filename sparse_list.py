@@ -75,7 +75,7 @@ class SparseList(object):
             indices = (item, )
 
         for i in indices:
-            for k in self.elements.keys():
+            for k in list(self.elements.keys()):
                 if k == i:
                     del self.elements[k]
                 elif k > i:
