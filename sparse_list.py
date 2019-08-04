@@ -55,7 +55,12 @@ class SparseList(object):
     def __getitem__(self, index):
         try:
             s = slice(index.start, index.stop, index.step).indices(self.size)
-            return [self[i] for i in xrange(*s)]
+            return SparseList(
+                {
+                    k: self.elements[i]
+                    for k, i in enumerate(xrange(*s))
+                    if i in self.elements
+                }, self.default)
         except AttributeError:
             i = slice(index).indices(self.size)[1]
             return self.elements.get(i, self.default)
@@ -88,7 +93,6 @@ class SparseList(object):
             del self.elements[k]
 
         self.size -= len(indices)
-
 
     def __delslice__(self, start, stop):
         '''
