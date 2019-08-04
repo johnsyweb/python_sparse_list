@@ -76,7 +76,7 @@ class SparseList(object):
 
         offset = 0
 
-        for k in list(self.elements.keys()):
+        for k in sorted(self.elements.keys()):
             if k < indices[0]:
                 continue
             elif offset < len(indices) and k > indices[offset]:
