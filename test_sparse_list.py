@@ -98,12 +98,20 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList([0, 1, 2, 4], 10)
         self.assertEqual([1, 2], sl[1:3])
 
+    def test_slice_is_sparse_list(self):
+        sl = sparse_list.SparseList([0, 1, 2, 4], 10)
+        self.assertIsInstance(sl[1:3], sparse_list.SparseList)
+
     def test_extended_slice(self):
-        sl = sparse_list.SparseList([0, 1, 2, 3, 4, 5, 6, ])
+        sl = sparse_list.SparseList([0, 1, 2, 3, 4, 5, 6])
         self.assertEqual([1, 3, 5], sl[1:6:2])
 
+    def test_extended_slice_is_sparse_list(self):
+        sl = sparse_list.SparseList([0, 1, 2, 3, 4, 5, 6])
+        self.assertIsInstance(sl[1:6:2], sparse_list.SparseList)
+
     def test_extended_slice_with_negative_stop(self):
-        sl = sparse_list.SparseList([0, 1, 2, 3, 4, 5, 6, ])
+        sl = sparse_list.SparseList([0, 1, 2, 3, 4, 5, 6])
         self.assertEqual([1, 3, 5], sl[1:-1:2])
 
     def test_slice_reversal_full(self):
