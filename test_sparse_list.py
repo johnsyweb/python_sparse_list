@@ -176,6 +176,11 @@ class TestSparseList(unittest.TestCase):
         del sl[::2]
         self.assertEqual([1, 3, 5], sl)
 
+    def test_empty_removal(self):
+        sl = sparse_list.SparseList(xrange(5), None)
+        del sl[3:3]
+        self.assertEqual([0, 1, 2, 3, 4], sl)
+
     def test_append(self):
         sl = sparse_list.SparseList(1, 0)
         sl.append(1)

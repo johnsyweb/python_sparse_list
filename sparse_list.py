@@ -79,6 +79,9 @@ class SparseList(object):
         else:
             indices = (item, )
 
+        if not indices:
+            return
+
         offset = 0
 
         for k in sorted(self.elements.keys()):
