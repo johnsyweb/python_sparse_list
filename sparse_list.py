@@ -144,13 +144,13 @@ class SparseList(object):
         self.size = len(self.elements)
 
     def __eq__(self, other):
-        return all(a == b for a, b in zip_longest(self, other))
+        return len(self) == len(other) and all(a == b for a, b in zip_longest(self, other))
 
     def __ne__(self, other):
         return not self.__eq__(other)
 
     def __lt__(self, other):
-        return any(a < b for a, b in zip_longest(self, other))
+        return list(self) < list(other)
 
     def __ge__(self, other):
         return not self.__lt__(other)

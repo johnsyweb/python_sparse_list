@@ -233,6 +233,16 @@ class TestSparseList(unittest.TestCase):
         self.assertTrue(not (b == a))
         self.assertNotEqual(b, a)
 
+    def test_inequality_length(self):
+        a = sparse_list.SparseList(2)
+        b = sparse_list.SparseList(4)
+        self.assertTrue(a != b)
+        self.assertTrue(not (a == b))
+        self.assertNotEqual(a, b)
+        self.assertTrue(b != a)
+        self.assertTrue(not (b == a))
+        self.assertNotEqual(b, a)
+
     def test_less_than(self):
         a = sparse_list.SparseList([1, 2, 3, 0])
         b = sparse_list.SparseList([1, 2, 4, 5])
