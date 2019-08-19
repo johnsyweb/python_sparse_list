@@ -122,6 +122,11 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList(4)
         self.assertEqual([None, None, None, None], sl[::-1])
 
+    def test_default_slice(self):
+        sl = sparse_list.SparseList(23)
+        sl[0:2] = (1,2)
+        self.assertEqual([None, None], sl[2:4])
+
     def test_slice_list_size(self):
         initial_size = 20
         sl = sparse_list.SparseList(initial_size)
