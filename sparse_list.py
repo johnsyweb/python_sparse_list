@@ -167,8 +167,8 @@ class SparseList(object):
         return not self.__lt__(other)
 
     def __mul__(self, multiplier):
-        result = []
-        for _ in xrange(multiplier):
+        result = self[:]
+        for _ in xrange(multiplier - 1):
             result += self[:]
         return result
 

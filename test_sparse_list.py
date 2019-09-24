@@ -307,7 +307,7 @@ class TestSparseList(unittest.TestCase):
         self.assertEqual(
             [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1], sl4)
         self.assertEqual(len(sl) * 4, len(sl4))
-        self.assertEqual(sl.population() * 4, sl4.population)
+        self.assertEqual(sl.population() * 4, sl4.population())
 
     def test_multiply_in_place(self):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
