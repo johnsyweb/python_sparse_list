@@ -122,6 +122,11 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList(4)
         self.assertEqual([None, None, None, None], sl[::-1])
 
+    def test_default_slice(self):
+        sl = sparse_list.SparseList(23)
+        sl[0:2] = (1,2)
+        self.assertEqual([None, None], sl[2:4])
+
     def test_slice_list_size(self):
         initial_size = 20
         sl = sparse_list.SparseList(initial_size)
@@ -238,6 +243,16 @@ class TestSparseList(unittest.TestCase):
         self.assertTrue(not (b == a))
         self.assertNotEqual(b, a)
 
+    def test_inequality_length(self):
+        a = sparse_list.SparseList(2)
+        b = sparse_list.SparseList(4)
+        self.assertTrue(a != b)
+        self.assertTrue(not (a == b))
+        self.assertNotEqual(a, b)
+        self.assertTrue(b != a)
+        self.assertTrue(not (b == a))
+        self.assertNotEqual(b, a)
+
     def test_less_than(self):
         a = sparse_list.SparseList([1, 2, 3, 0])
         b = sparse_list.SparseList([1, 2, 4, 5])
@@ -253,6 +268,31 @@ class TestSparseList(unittest.TestCase):
         self.assertFalse(b == a)
         self.assertFalse(b <= a)
         self.assertFalse(b < a)
+
+    def test_less_than_with_a_pair_that_is_greater(self):
+        a = sparse_list.SparseList([1, 2, 3])
+        b = sparse_list.SparseList([1, 0, 4])
+        self.assertFalse(a < b)
+        self.assertFalse(a == b)
+        self.assertTrue(b <= a)
+        self.assertTrue(b < a)
+
+    def test_less_than_prefix(self):
+        a = sparse_list.SparseList([1, 2, 3])
+        b = sparse_list.SparseList([1, 2, 3, 4])
+        self.assertTrue(a < b)
+        self.assertFalse(a == b)
+        self.assertFalse(b <= a)
+        self.assertFalse(b < a)
+
+    def test_less_than_different_lengths(self):
+        a = sparse_list.SparseList([1, 2, 3, 4])
+        b = sparse_list.SparseList([2, 1, 3])
+        self.assertTrue(a < b)
+        self.assertFalse(a == b)
+        self.assertFalse(b <= a)
+        self.assertFalse(b < a)
+
 
     def test_multiply(self):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)

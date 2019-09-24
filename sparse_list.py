@@ -19,7 +19,6 @@ except NameError:
     xrange = range
 
 from six import iteritems, itervalues
-from six.moves import zip_longest
 
 
 class SparseList(object):
@@ -55,12 +54,15 @@ class SparseList(object):
     def __getitem__(self, index):
         try:
             s = slice(index.start, index.stop, index.step).indices(self.size)
-            return SparseList(
+            indices = xrange(*s)
+            sl = SparseList(
                 {
                     k: self.elements[i]
-                    for k, i in enumerate(xrange(*s))
+                    for k, i in enumerate(indices)
                     if i in self.elements
                 }, self.default)
+            sl.size = len(indices)
+            return sl
         except AttributeError:
             i = slice(index).indices(self.size)[1]
             return self.elements.get(i, self.default)
@@ -147,13 +149,18 @@ class SparseList(object):
         self.size = len(self.elements)
 
     def __eq__(self, other):
-        return all(a == b for a, b in zip_longest(self, other))
+        return len(self) == len(other) and all(a == b for a, b in zip(self, other))
 
     def __ne__(self, other):
         return not self.__eq__(other)
 
     def __lt__(self, other):
-        return any(a < b for a, b in zip_longest(self, other))
+        for a, b in zip(self, other):
+            if a < b:
+                return True
+            if a > b:
+                return False
+        return len(self) < len(other)
 
     def __ge__(self, other):
         return not self.__lt__(other)
