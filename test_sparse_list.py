@@ -264,7 +264,7 @@ class TestSparseList(unittest.TestCase):
         self.assertFalse(b <= a)
         self.assertFalse(b < a)
 
-    def test_less_than_2(self):
+    def test_less_than_with_a_pair_that_is_greater(self):
         a = sparse_list.SparseList([1,2,3])
         b = sparse_list.SparseList([1,0,4])
         self.assertFalse(a < b)
