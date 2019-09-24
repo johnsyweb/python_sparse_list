@@ -215,16 +215,19 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList(xrange(6), None)
         del sl[::2]
         self.assertEqual([1, 3, 5], sl)
+        self.assertEqual(3, sl.population())
 
     def test_empty_removal(self):
         sl = sparse_list.SparseList(xrange(5), None)
         del sl[3:3]
         self.assertEqual([0, 1, 2, 3, 4], sl)
+        self.assertEqual(5, sl.population())
 
     def test_append(self):
         sl = sparse_list.SparseList(1, 0)
         sl.append(1)
         self.assertEqual([0, 1], sl)
+        self.assertEqual(1, sl.population())
 
     def test_clone(self):
         a = sparse_list.SparseList([1, 2, 3])
@@ -232,6 +235,7 @@ class TestSparseList(unittest.TestCase):
         b.append(4)
         self.assertEqual([1, 2, 3], a)
         self.assertEqual([1, 2, 3, 4], b)
+        self.assertEqual(a.population() + 1, b.population())
 
     def test_concatenation(self):
         a = sparse_list.SparseList([1, 2, 3])
@@ -240,6 +244,7 @@ class TestSparseList(unittest.TestCase):
         self.assertEqual([1, 2, 3], a)
         self.assertEqual([4, 5, 6], b)
         self.assertEqual([1, 2, 3, 4, 5, 6], c)
+        self.assertEqual(a.population() + b.population(), c.population())
 
     def test_in_place_concatenation(self):
         a = sparse_list.SparseList([1, 2, 3])
@@ -247,6 +252,7 @@ class TestSparseList(unittest.TestCase):
         a += b
         self.assertEqual([1, 2, 3, 4, 5, 6], a)
         self.assertEqual([4, 5, 6], b)
+        self.assertEqual(6, a.population())
 
     def test_equality(self):
         a = sparse_list.SparseList([1, 2, 3])
