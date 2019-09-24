@@ -209,6 +209,7 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList(xrange(10), None)
         del sl[5:]
         self.assertEqual([0, 1, 2, 3, 4], sl)
+        self.assertEqual(5, sl.population())
 
     def test_stepped_slice_removal(self):
         sl = sparse_list.SparseList(xrange(6), None)
