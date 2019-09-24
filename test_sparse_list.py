@@ -173,21 +173,37 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
         del sl[0]
         self.assertEqual([0, 0, 0, 1], sl)
+        self.assertEqual(1, sl.population())
 
     def test_missing_item_removal(self):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
         del sl[1]
         self.assertEqual([1, 0, 0, 1], sl)
+        self.assertEqual(2, sl.population())
 
     def test_slice_removal(self):
-        sl = sparse_list.SparseList(xrange(10), None)
+        sl = sparse_list.SparseList(xrange(10))
         del sl[3:5]
         self.assertEqual([0, 1, 2, 5, 6, 7, 8, 9], sl)
+        self.assertEqual(8, sl.population())
+
+    def test_slice_removal_with_default_present(self):
+        sl = sparse_list.SparseList(xrange(10), 0)
+        del sl[3:5]
+        self.assertEqual([0, 1, 2, 5, 6, 7, 8, 9], sl)
+        self.assertEqual(7, sl.population())
 
     def test_unbounded_head_slice_removal(self):
-        sl = sparse_list.SparseList(xrange(10), None)
+        sl = sparse_list.SparseList(xrange(10))
         del sl[:3]
         self.assertEqual([3, 4, 5, 6, 7, 8, 9], sl)
+        self.assertEqual(7, sl.population())
+
+    def test_unbounded_head_slice_removal_with_default_present(self):
+        sl = sparse_list.SparseList(xrange(10), 0)
+        del sl[:3]
+        self.assertEqual([3, 4, 5, 6, 7, 8, 9], sl)
+        self.assertEqual(7, sl.population())
 
     def test_unbounded_tail_slice_removal(self):
         sl = sparse_list.SparseList(xrange(10), None)
