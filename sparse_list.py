@@ -144,7 +144,7 @@ class SparseList(object):
             self.size = max(key + 1, self.size)
             return key
         self.size = 0
-        self.elements = {__convert_and_size(k): v for k, v in iteritems(arg)}
+        self.elements = {__convert_and_size(k): v for k, v in iteritems(arg) if v != self.default}
 
     def __initialise_from_iterable(self, arg):
         self.elements = {k: v for k, v in enumerate(arg)}

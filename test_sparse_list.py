@@ -80,6 +80,15 @@ class TestSparseList(unittest.TestCase):
             3: 5,
         }, 0)
         self.assertEqual([0, 0, 0, 5, 6], sl)
+        self.assertEqual(2, sl.population())
+
+    def test_initialisation_by_dict_does_not_add_defaults(self):
+        sl = sparse_list.SparseList({
+            3: 0,
+            4: 6,
+        }, 0)
+        self.assertEqual([0, 0, 0, 0, 6], sl)
+        self.assertEqual(1, sl.population())
 
     def test_initialisation_by_dict_with_non_numeric_key(self):
         self.assertRaises(ValueError, sparse_list.SparseList, {'a': 5})
@@ -87,11 +96,13 @@ class TestSparseList(unittest.TestCase):
     def test_initialisation_by_list(self):
         sl = sparse_list.SparseList([0, 1, 2, 4])
         self.assertEqual([0, 1, 2, 4], sl)
+        self.assertEqual(4, sl.population())
 
     def test_initialisation_by_generator(self):
         gen = (x for x in (1, 2, 3))
         sl = sparse_list.SparseList(gen)
         self.assertEqual([1, 2, 3], sl)
+        self.assertEqual(3, sl.population())
 
     def test_access_with_negative_index(self):
         sl = sparse_list.SparseList([0, 1, 2, 4])
