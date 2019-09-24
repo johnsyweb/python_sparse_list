@@ -51,12 +51,12 @@ class TestSparseList(unittest.TestCase):
 
     def test_iteration_empty(self):
         sl = sparse_list.SparseList(3)
-        self.assertEqual([None, None, None], sl)
+        self.assertEqual([None, None, None], list(sl))
 
     def test_iteration_populated(self):
         sl = sparse_list.SparseList(5)
         sl[1], sl[3] = 'a', 'b'
-        self.assertEqual([None, 'a', None, 'b', None], sl)
+        self.assertEqual([None, 'a', None, 'b', None], list(sl))
 
     def test_membership_absent(self):
         sl = sparse_list.SparseList(5)
@@ -154,11 +154,11 @@ class TestSparseList(unittest.TestCase):
 
     def test_reversed(self):
         sl = sparse_list.SparseList([1, 2, 3])
-        self.assertItemsEqual([3, 2, 1], reversed(sl))
+        self.assertEqual([3, 2, 1], list(reversed(sl)))
 
     def test_sorted(self):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
-        self.assertItemsEqual([0, 0, 0, 1, 1], sorted(sl))
+        self.assertEqual([0, 0, 0, 1, 1], list(sorted(sl)))
 
     def test_get_out_of_bounds(self):
         sl = sparse_list.SparseList(1)
