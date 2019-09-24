@@ -14,33 +14,40 @@ class TestSparseList(unittest.TestCase):
     def test_init_zero(self):
         sl = sparse_list.SparseList(0)
         self.assertEqual(0, len(sl))
+        self.assertEqual(0, sl.population())
 
     def test_init_non_zero(self):
         sl = sparse_list.SparseList(10)
         self.assertEqual(10, len(sl))
+        self.assertEqual(0, sl.population())
 
     def test_init_no_default(self):
         sl = sparse_list.SparseList(1)
         self.assertEqual(None, sl.default)
+        self.assertEqual(0, sl.population())
 
     def test_init_default(self):
         sl = sparse_list.SparseList(1, 'test')
         self.assertEqual('test', sl.default)
+        self.assertEqual(0, sl.population())
 
     def test_random_access_write(self):
         sl = sparse_list.SparseList(1)
         sl[0] = 'alice'
         self.assertEqual({0: 'alice'}, sl.elements)
+        self.assertEqual(1, sl.population())
 
     def test_random_access_read_present(self):
         sl = sparse_list.SparseList(2)
         sl[0] = 'brent'
         self.assertEqual('brent', sl[0])
+        self.assertEqual(1, sl.population())
 
     def test_random_access_read_absent(self):
         sl = sparse_list.SparseList(2, 'absent')
         sl[1] = 'clint'
         self.assertEqual('absent', sl[0])
+        self.assertEqual(1, sl.population())
 
     def test_iteration_empty(self):
         sl = sparse_list.SparseList(3)
@@ -73,6 +80,15 @@ class TestSparseList(unittest.TestCase):
             3: 5,
         }, 0)
         self.assertEqual([0, 0, 0, 5, 6], sl)
+        self.assertEqual(2, sl.population())
+
+    def test_initialisation_by_dict_does_not_add_defaults(self):
+        sl = sparse_list.SparseList({
+            3: 0,
+            4: 6,
+        }, 0)
+        self.assertEqual([0, 0, 0, 0, 6], sl)
+        self.assertEqual(1, sl.population())
 
     def test_initialisation_by_dict_with_non_numeric_key(self):
         self.assertRaises(ValueError, sparse_list.SparseList, {'a': 5})
@@ -80,11 +96,18 @@ class TestSparseList(unittest.TestCase):
     def test_initialisation_by_list(self):
         sl = sparse_list.SparseList([0, 1, 2, 4])
         self.assertEqual([0, 1, 2, 4], sl)
+        self.assertEqual(4, sl.population())
+
+    def test_initialisation_by_list_does_not_add_defaults(self):
+        sl = sparse_list.SparseList([0, 1, 2, 4], 0)
+        self.assertEqual([0, 1, 2, 4], sl)
+        self.assertEqual(3, sl.population())
 
     def test_initialisation_by_generator(self):
         gen = (x for x in (1, 2, 3))
         sl = sparse_list.SparseList(gen)
         self.assertEqual([1, 2, 3], sl)
+        self.assertEqual(3, sl.population())
 
     def test_access_with_negative_index(self):
         sl = sparse_list.SparseList([0, 1, 2, 4])
@@ -155,41 +178,61 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
         del sl[0]
         self.assertEqual([0, 0, 0, 1], sl)
+        self.assertEqual(1, sl.population())
 
     def test_missing_item_removal(self):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
         del sl[1]
         self.assertEqual([1, 0, 0, 1], sl)
+        self.assertEqual(2, sl.population())
 
     def test_slice_removal(self):
-        sl = sparse_list.SparseList(xrange(10), None)
+        sl = sparse_list.SparseList(xrange(10))
         del sl[3:5]
         self.assertEqual([0, 1, 2, 5, 6, 7, 8, 9], sl)
+        self.assertEqual(8, sl.population())
+
+    def test_slice_removal_with_default_present(self):
+        sl = sparse_list.SparseList(xrange(10), 0)
+        del sl[3:5]
+        self.assertEqual([0, 1, 2, 5, 6, 7, 8, 9], sl)
+        self.assertEqual(7, sl.population())
 
     def test_unbounded_head_slice_removal(self):
-        sl = sparse_list.SparseList(xrange(10), None)
+        sl = sparse_list.SparseList(xrange(10))
         del sl[:3]
         self.assertEqual([3, 4, 5, 6, 7, 8, 9], sl)
+        self.assertEqual(7, sl.population())
+
+    def test_unbounded_head_slice_removal_with_default_present(self):
+        sl = sparse_list.SparseList(xrange(10), 0)
+        del sl[:3]
+        self.assertEqual([3, 4, 5, 6, 7, 8, 9], sl)
+        self.assertEqual(7, sl.population())
 
     def test_unbounded_tail_slice_removal(self):
         sl = sparse_list.SparseList(xrange(10), None)
         del sl[5:]
         self.assertEqual([0, 1, 2, 3, 4], sl)
+        self.assertEqual(5, sl.population())
 
     def test_stepped_slice_removal(self):
         sl = sparse_list.SparseList(xrange(6), None)
         del sl[::2]
         self.assertEqual([1, 3, 5], sl)
+        self.assertEqual(3, sl.population())
 
     def test_empty_removal(self):
         sl = sparse_list.SparseList(xrange(5), None)
         del sl[3:3]
         self.assertEqual([0, 1, 2, 3, 4], sl)
+        self.assertEqual(5, sl.population())
 
     def test_append(self):
         sl = sparse_list.SparseList(1, 0)
         sl.append(1)
         self.assertEqual([0, 1], sl)
+        self.assertEqual(1, sl.population())
 
     def test_clone(self):
         a = sparse_list.SparseList([1, 2, 3])
@@ -197,6 +240,7 @@ class TestSparseList(unittest.TestCase):
         b.append(4)
         self.assertEqual([1, 2, 3], a)
         self.assertEqual([1, 2, 3, 4], b)
+        self.assertEqual(a.population() + 1, b.population())
 
     def test_concatenation(self):
         a = sparse_list.SparseList([1, 2, 3])
@@ -205,6 +249,7 @@ class TestSparseList(unittest.TestCase):
         self.assertEqual([1, 2, 3], a)
         self.assertEqual([4, 5, 6], b)
         self.assertEqual([1, 2, 3, 4, 5, 6], c)
+        self.assertEqual(a.population() + b.population(), c.population())
 
     def test_in_place_concatenation(self):
         a = sparse_list.SparseList([1, 2, 3])
@@ -212,6 +257,7 @@ class TestSparseList(unittest.TestCase):
         a += b
         self.assertEqual([1, 2, 3, 4, 5, 6], a)
         self.assertEqual([4, 5, 6], b)
+        self.assertEqual(6, a.population())
 
     def test_equality(self):
         a = sparse_list.SparseList([1, 2, 3])
@@ -301,12 +347,14 @@ class TestSparseList(unittest.TestCase):
         self.assertEqual(
             [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1], sl4)
         self.assertEqual(len(sl) * 4, len(sl4))
+        self.assertEqual(sl.population() * 4, sl4.population())
 
     def test_multiply_in_place(self):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
         sl *= 4
         self.assertEqual(
             [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1], sl)
+        self.assertEqual(8, sl.population())
 
     def test_count_value(self):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
@@ -352,24 +400,28 @@ class TestSparseList(unittest.TestCase):
         self.assertEqual(3, popped)
         self.assertEqual(2, len(sl))
         self.assertEqual([1, 2], sl)
+        self.assertEqual(2, sl.population())
 
     def test_push_value(self):
         sl = sparse_list.SparseList([1, 2, 3])
         sl.push(4)
         self.assertEqual(4, len(sl))
         self.assertEqual([1, 2, 3, 4], sl)
+        self.assertEqual(4, sl.population())
 
     def test_remove_value(self):
         sl = sparse_list.SparseList([1, 2, 3])
         sl.remove(2)
         self.assertEqual(3, len(sl))
         self.assertEqual([1, None, 3], sl)
+        self.assertEqual(2, sl.population())
 
     def test_remove_only_first_value(self):
         sl = sparse_list.SparseList([2, 2, 3])
         sl.remove(2)
         self.assertEqual(3, len(sl))
         self.assertEqual([None, 2, 3], sl)
+        self.assertEqual(2, sl.population())
 
     def test_remove_non_value(self):
         sl = sparse_list.SparseList([1, 2, 3])
@@ -379,27 +431,39 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList(4, None)
         sl.remove(None)
         self.assertEqual([None, None, None, None], sl)
+        self.assertEqual(0, sl.population())
 
     def test_set_slice_observes_stop(self):
         sl = sparse_list.SparseList(4, None)
         sl[0:2] = [1, 2, 3]
         self.assertEqual([1, 2, None, None], sl)
+        self.assertEqual(2, sl.population())
 
     def test_set_slice_resizes(self):
         sl = sparse_list.SparseList(0, None)
         sl[4:] = [4, 5]
         self.assertEqual([None, None, None, None, 4, 5], sl)
         self.assertEqual(len(sl), 6)
+        self.assertEqual(2, sl.population())
 
     def test_set_slice_extends_past_end(self):
         sl = sparse_list.SparseList(5, None)
         sl[3:] = [6, 7, 8]
         self.assertEqual([None, None, None, 6, 7, 8], sl)
+        self.assertEqual(3, sl.population())
 
     def test_set_slice_with_step(self):
         sl = sparse_list.SparseList(6, None)
         sl[::2] = [1, 2, 3]
         self.assertEqual([1, None, 2, None, 3, None], sl)
+        self.assertEqual(3, sl.population())
+
+    def test_setting_an_item_with_default_does_not_increase_population(self):
+        sl = sparse_list.SparseList(6, None)
+        sl[2] = None
+        self.assertEqual(6, len(sl))
+        self.assertEqual(0, sl.population())
+
 
 if __name__ == '__main__':
     unittest.main()

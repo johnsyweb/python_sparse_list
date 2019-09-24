@@ -30,6 +30,7 @@ class SparseList(object):
     def __init__(self, arg, default_value=None):
         self.default = default_value
         self.elements = {}
+        self.size = 0
         if isinstance(arg, int):
             self.size = int(arg)
         elif isinstance(arg, dict):
@@ -40,6 +41,9 @@ class SparseList(object):
     def __len__(self):
         return self.size
 
+    def population(self):
+        return len(self.elements)
+
     def __setitem__(self, index, value):
         try:
             if index.start:
@@ -48,7 +52,8 @@ class SparseList(object):
             for v, i in enumerate(xrange(*s)):
                 self.__setitem__(i, value[v])
         except AttributeError:
-            self.elements[index] = value
+            if value != self.default:
+                self.elements[index] = value
             self.size = max(index + 1, self.size)
 
     def __getitem__(self, index):
@@ -75,29 +80,31 @@ class SparseList(object):
 
     def __delitem__(self, item):
         if isinstance(item, slice):
-            indices = xrange(*item.indices(self.size))
+            keys_to_remove = xrange(*item.indices(self.size))
         elif item < 0:
-            indices = (self.size + item, )
+            keys_to_remove = (self.size + item, )
         else:
-            indices = (item, )
+            keys_to_remove = (item, )
 
-        if not indices:
+        if not keys_to_remove:
             return
 
-        offset = 0
+        keys_removed = 0
+        removing_tail = keys_to_remove[-1] == self.size - 1
 
-        for k in sorted(self.elements.keys()):
-            if k < indices[0]:
+        for current_key in sorted(self.elements.keys()):
+            if current_key < keys_to_remove[0]:
                 continue
-            elif offset < len(indices) and k > indices[offset]:
-                offset += 1
 
-            if offset:
-                self.elements[k - offset] = self.elements[k]
+            elif keys_removed < len(keys_to_remove) and current_key > keys_to_remove[keys_removed]:
+                keys_removed += 1
 
-            del self.elements[k]
+            if keys_removed and not removing_tail:
+                self.elements[current_key - keys_removed] = self.elements[current_key]
 
-        self.size -= len(indices)
+            del self.elements[current_key]
+
+        self.size -= len(keys_to_remove)
 
     def __delslice__(self, start, stop):
         '''
@@ -128,7 +135,8 @@ class SparseList(object):
         '''
         append element, increasing size by exactly one
         '''
-        self.elements[self.size] = element
+        if element != self.default:
+            self.elements[self.size] = element
         self.size += 1
 
     push = append
@@ -141,12 +149,12 @@ class SparseList(object):
                 raise ValueError('Invalid key: {}'.format(key))
             self.size = max(key + 1, self.size)
             return key
-        self.size = 0
-        self.elements = {__convert_and_size(k): v for k, v in iteritems(arg)}
+        self.elements = {__convert_and_size(k): v for k, v in iteritems(arg) if v != self.default}
 
     def __initialise_from_iterable(self, arg):
-        self.elements = {k: v for k, v in enumerate(arg)}
-        self.size = len(self.elements)
+        for v in arg:
+            self.append(v)
+
 
     def __eq__(self, other):
         return len(self) == len(other) and all(a == b for a, b in zip(self, other))
@@ -166,8 +174,8 @@ class SparseList(object):
         return not self.__lt__(other)
 
     def __mul__(self, multiplier):
-        result = []
-        for _ in xrange(multiplier):
+        result = self[:]
+        for _ in xrange(multiplier - 1):
             result += self[:]
         return result
 
