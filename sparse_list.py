@@ -88,6 +88,7 @@ class SparseList(object):
             return
 
         keys_removed = 0
+        removing_tail = keys_to_remove[-1] == self.size - 1
 
         for current_key in sorted(self.elements.keys()):
             if current_key < keys_to_remove[0]:
@@ -96,7 +97,7 @@ class SparseList(object):
             elif keys_removed < len(keys_to_remove) and current_key > keys_to_remove[keys_removed]:
                 keys_removed += 1
 
-            if keys_removed:
+            if keys_removed and not removing_tail:
                 self.elements[current_key - keys_removed] = self.elements[current_key]
 
             del self.elements[current_key]
