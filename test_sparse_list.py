@@ -35,16 +35,19 @@ class TestSparseList(unittest.TestCase):
         sl = sparse_list.SparseList(1)
         sl[0] = 'alice'
         self.assertEqual({0: 'alice'}, sl.elements)
+        self.assertEqual(1, sl.population())
 
     def test_random_access_read_present(self):
         sl = sparse_list.SparseList(2)
         sl[0] = 'brent'
         self.assertEqual('brent', sl[0])
+        self.assertEqual(1, sl.population())
 
     def test_random_access_read_absent(self):
         sl = sparse_list.SparseList(2, 'absent')
         sl[1] = 'clint'
         self.assertEqual('absent', sl[0])
+        self.assertEqual(1, sl.population())
 
     def test_iteration_empty(self):
         sl = sparse_list.SparseList(3)
