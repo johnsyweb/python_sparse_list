@@ -78,29 +78,30 @@ class SparseList(object):
 
     def __delitem__(self, item):
         if isinstance(item, slice):
-            indices = xrange(*item.indices(self.size))
+            keys_to_remove = xrange(*item.indices(self.size))
         elif item < 0:
-            indices = (self.size + item, )
+            keys_to_remove = (self.size + item, )
         else:
-            indices = (item, )
+            keys_to_remove = (item, )
 
-        if not indices:
+        if not keys_to_remove:
             return
 
-        offset = 0
+        keys_removed = 0
 
-        for k in sorted(self.elements.keys()):
-            if k < indices[0]:
+        for current_key in sorted(self.elements.keys()):
+            if current_key < keys_to_remove[0]:
                 continue
-            elif offset < len(indices) and k > indices[offset]:
-                offset += 1
 
-            if offset:
-                self.elements[k - offset] = self.elements[k]
+            elif keys_removed < len(keys_to_remove) and current_key > keys_to_remove[keys_removed]:
+                keys_removed += 1
 
-            del self.elements[k]
+            if keys_removed:
+                self.elements[current_key - keys_removed] = self.elements[current_key]
 
-        self.size -= len(indices)
+            del self.elements[current_key]
+
+        self.size -= len(keys_to_remove)
 
     def __delslice__(self, start, stop):
         '''
