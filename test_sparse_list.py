@@ -266,19 +266,28 @@ class TestSparseList(unittest.TestCase):
 
     def test_less_than_with_a_pair_that_is_greater(self):
         a = sparse_list.SparseList([1, 2, 3])
-        b = sparse_list.SparseList([1,0,4])
+        b = sparse_list.SparseList([1, 0, 4])
         self.assertFalse(a < b)
         self.assertFalse(a == b)
         self.assertTrue(b <= a)
         self.assertTrue(b < a)
 
-    def test_less_than_different_lengths(self):
-        a = sparse_list.SparseList([1,2,3])
-        b = sparse_list.SparseList([1,2,3,4])
+    def test_less_than_prefix(self):
+        a = sparse_list.SparseList([1, 2, 3])
+        b = sparse_list.SparseList([1, 2, 3, 4])
         self.assertTrue(a < b)
         self.assertFalse(a == b)
         self.assertFalse(b <= a)
         self.assertFalse(b < a)
+
+    def test_less_than_different_lengths(self):
+        a = sparse_list.SparseList([1, 2, 3, 4])
+        b = sparse_list.SparseList([2, 1, 3])
+        self.assertTrue(a < b)
+        self.assertFalse(a == b)
+        self.assertFalse(b <= a)
+        self.assertFalse(b < a)
+
 
     def test_multiply(self):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)

@@ -152,12 +152,12 @@ class SparseList(object):
         return not self.__eq__(other)
 
     def __lt__(self, other):
-        for a, b in zip_longest(self, other):
+        for a, b in zip(self, other):
             if a < b:
                 return True
             if a > b:
                 return False
-        return False
+        return len(self) < len(other)
 
     def __ge__(self, other):
         return not self.__lt__(other)
