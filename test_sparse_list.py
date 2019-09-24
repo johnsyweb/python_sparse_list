@@ -14,18 +14,22 @@ class TestSparseList(unittest.TestCase):
     def test_init_zero(self):
         sl = sparse_list.SparseList(0)
         self.assertEqual(0, len(sl))
+        self.assertEqual(0, sl.population())
 
     def test_init_non_zero(self):
         sl = sparse_list.SparseList(10)
         self.assertEqual(10, len(sl))
+        self.assertEqual(0, sl.population())
 
     def test_init_no_default(self):
         sl = sparse_list.SparseList(1)
         self.assertEqual(None, sl.default)
+        self.assertEqual(0, sl.population())
 
     def test_init_default(self):
         sl = sparse_list.SparseList(1, 'test')
         self.assertEqual('test', sl.default)
+        self.assertEqual(0, sl.population())
 
     def test_random_access_write(self):
         sl = sparse_list.SparseList(1)
