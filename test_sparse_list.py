@@ -98,6 +98,11 @@ class TestSparseList(unittest.TestCase):
         self.assertEqual([0, 1, 2, 4], sl)
         self.assertEqual(4, sl.population())
 
+    def test_initialisation_by_list_does_not_add_defaults(self):
+        sl = sparse_list.SparseList([0, 1, 2, 4], 0)
+        self.assertEqual([0, 1, 2, 4], sl)
+        self.assertEqual(3, sl.population())
+
     def test_initialisation_by_generator(self):
         gen = (x for x in (1, 2, 3))
         sl = sparse_list.SparseList(gen)

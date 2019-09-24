@@ -31,6 +31,7 @@ class SparseList(object):
     def __init__(self, arg, default_value=None):
         self.default = default_value
         self.elements = {}
+        self.size = 0
         if isinstance(arg, int):
             self.size = int(arg)
         elif isinstance(arg, dict):
@@ -130,7 +131,8 @@ class SparseList(object):
         '''
         append element, increasing size by exactly one
         '''
-        self.elements[self.size] = element
+        if element != self.default:
+            self.elements[self.size] = element
         self.size += 1
 
     push = append
@@ -143,12 +145,12 @@ class SparseList(object):
                 raise ValueError('Invalid key: {}'.format(key))
             self.size = max(key + 1, self.size)
             return key
-        self.size = 0
         self.elements = {__convert_and_size(k): v for k, v in iteritems(arg) if v != self.default}
 
     def __initialise_from_iterable(self, arg):
-        self.elements = {k: v for k, v in enumerate(arg)}
-        self.size = len(self.elements)
+        for v in arg:
+            self.append(v)
+
 
     def __eq__(self, other):
         return all(a == b for a, b in zip_longest(self, other))
