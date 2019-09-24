@@ -19,7 +19,6 @@ except NameError:
     xrange = range
 
 from six import iteritems, itervalues
-from six.moves import zip_longest
 
 
 class SparseList(object):
@@ -147,7 +146,7 @@ class SparseList(object):
         self.size = len(self.elements)
 
     def __eq__(self, other):
-        return len(self) == len(other) and all(a == b for a, b in zip_longest(self, other))
+        return len(self) == len(other) and all(a == b for a, b in zip(self, other))
 
     def __ne__(self, other):
         return not self.__eq__(other)
