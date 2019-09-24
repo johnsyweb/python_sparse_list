@@ -361,5 +361,12 @@ class TestSparseList(unittest.TestCase):
         sl[::2] = [1, 2, 3]
         self.assertEqual([1, None, 2, None, 3, None], sl)
 
+    def test_setting_an_item_with_default_does_not_increase_population(self):
+        sl = sparse_list.SparseList(6, None)
+        sl[2] = None
+        self.assertEqual(6, len(sl))
+        self.assertEqual(0, sl.population())
+
+
 if __name__ == '__main__':
     unittest.main()

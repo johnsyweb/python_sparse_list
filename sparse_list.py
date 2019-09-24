@@ -41,6 +41,9 @@ class SparseList(object):
     def __len__(self):
         return self.size
 
+    def population(self):
+        return len(self.elements)
+
     def __setitem__(self, index, value):
         try:
             if index.start:
@@ -49,7 +52,8 @@ class SparseList(object):
             for v, i in enumerate(xrange(*s)):
                 self.__setitem__(i, value[v])
         except AttributeError:
-            self.elements[index] = value
+            if value != self.default:
+                self.elements[index] = value
             self.size = max(index + 1, self.size)
 
     def __getitem__(self, index):
