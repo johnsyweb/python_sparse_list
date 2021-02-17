@@ -12,14 +12,6 @@ wish to store these. cf. Sparse array:
     http://en.wikipedia.org/wiki/Sparse_array
 '''
 
-try:
-    xrange
-except NameError:
-    # On Python 3, range() is equivalent to Python 2's xrange()
-    xrange = range
-
-from six import iteritems, itervalues
-
 
 class SparseList(object):
     '''
@@ -49,7 +41,7 @@ class SparseList(object):
             if index.start:
                 self.size = max(self.size, index.start + len(value))
             s = slice(index.start, index.stop, index.step).indices(self.size)
-            for v, i in enumerate(xrange(*s)):
+            for v, i in enumerate(range(*s)):
                 self.__setitem__(i, value[v])
         except AttributeError:
             if value != self.default:
@@ -59,7 +51,7 @@ class SparseList(object):
     def __getitem__(self, index):
         try:
             s = slice(index.start, index.stop, index.step).indices(self.size)
-            indices = xrange(*s)
+            indices = range(*s)
             sl = SparseList(
                 {
                     k: self.elements[i]
@@ -80,7 +72,7 @@ class SparseList(object):
 
     def __delitem__(self, item):
         if isinstance(item, slice):
-            keys_to_remove = xrange(*item.indices(self.size))
+            keys_to_remove = range(*item.indices(self.size))
         elif item < 0:
             keys_to_remove = (self.size + item, )
         else:
@@ -113,11 +105,11 @@ class SparseList(object):
         return self.__delitem__(slice(start, stop))
 
     def __iter__(self):
-        for index in xrange(self.size):
+        for index in range(self.size):
             yield self[index]
 
     def __contains__(self, index):
-        return index in itervalues(self.elements)
+        return index in self.elements.values()
 
     def __repr__(self):
         return '[{}]'.format(', '.join([str(e) for e in self]))
@@ -149,7 +141,7 @@ class SparseList(object):
                 raise ValueError('Invalid key: {}'.format(key))
             self.size = max(key + 1, self.size)
             return key
-        self.elements = {__convert_and_size(k): v for k, v in iteritems(arg) if v != self.default}
+        self.elements = {__convert_and_size(k): v for k, v in arg.items() if v != self.default}
 
     def __initialise_from_iterable(self, arg):
         for v in arg:
@@ -175,7 +167,7 @@ class SparseList(object):
 
     def __mul__(self, multiplier):
         result = self[:]
-        for _ in xrange(multiplier - 1):
+        for _ in range(multiplier - 1):
             result += self[:]
         return result
 
@@ -183,7 +175,7 @@ class SparseList(object):
         '''
         return number of occurrences of value
         '''
-        return sum(v == value for v in itervalues(self.elements)) + (
+        return sum(v == value for v in self.elements.values()) + (
             self.size - len(self.elements) if value == self.default else 0
         )
 
@@ -204,7 +196,7 @@ class SparseList(object):
                 if v == value:
                     return k
             raise ValueError('{} not in SparseList'.format(value))
-        for k, v in iteritems(self.elements):
+        for k, v in self.elements.items():
             if v == value:
                 return k
         raise ValueError('{} not in SparseList'.format(value))
@@ -227,7 +219,7 @@ class SparseList(object):
         '''
         if value == self.default:
             return
-        for k, v in iteritems(self.elements):
+        for k, v in self.elements.items():
             if v == value:
                 del self.elements[k]
                 return
