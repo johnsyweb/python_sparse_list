@@ -10,7 +10,7 @@ setup(
     name='sparse_list',
     py_modules=['sparse_list'],
     version=version,
-    description='A list where most (>95%) values will be None (or default)',
+    description='A list where most values will be None (or some other default)',
     author=paj,
     author_email=paj_email,
     maintainer=paj,

@@ -5,9 +5,9 @@ StackOverflow:
 
     http://stackoverflow.com/q/17522753/78845
 
-A "sparse list" is a list where most (say, more than 95% of) values will be
-None (or some other default) and for reasons of memory efficiency you don't
-wish to store these. cf. Sparse array:
+A "sparse list" is a list where most values will be None (or some other
+default) and for reasons of memory efficiency you don't wish to store these.
+cf. Sparse array:
 
     http://en.wikipedia.org/wiki/Sparse_array
 '''

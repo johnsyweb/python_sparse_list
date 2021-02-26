@@ -5,9 +5,8 @@ Inspired by the post `Populating a sparse list with random
 1's <http://stackoverflow.com/q/17522753/78845>`__ on
 `StackOverflow <http://stackoverflow.com/>`__.
 
-A "sparse list" is a list where most (say, more than 95% of) values will
-be None (or some other default) and for reasons of memory efficiency you
-don't wish to store these (cf. `Sparse
+A "sparse list" is a list where most values will be None (or some other default)
+and for reasons of memory efficiency you don't wish to store these (cf. `Sparse
 array <http://en.wikipedia.org/wiki/Sparse_array>`__).
 
 This implementation has a similar interface to Python's built-in list
