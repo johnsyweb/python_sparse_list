@@ -61,5 +61,5 @@ contributors, you can find their details here:
 
 https://github.com/johnsyweb/python_sparse_list/graphs/contributors
 
-.. |Build Status| image:: https://travis-ci.org/johnsyweb/python_sparse_list.png
-   :target: https://travis-ci.org/johnsyweb/python_sparse_list
+.. |Build Status| image:: https://github.com/johnsyweb/python_sparse_list/actions/workflows/python.yml/badge.svg
+   :target: https://github.com/johnsyweb/python_sparse_list/actions/workflows/python.yml
