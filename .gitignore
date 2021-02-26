@@ -2,5 +2,9 @@
 /.coverage
 /MANIFEST
 /build/
+/coverage.xml
 /dist/
 /docs/_build
+/htmlcov/
+/sparse_list.egg-info/
+/test-results-*.xml

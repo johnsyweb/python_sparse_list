@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = '0.9'
+version = '1.0'
 github_url = 'https://github.com/johnsyweb/python_sparse_list'
 paj = 'Pete Johns'
 paj_email = 'paj+pypi@johnsy.com'
@@ -10,7 +10,7 @@ setup(
     name='sparse_list',
     py_modules=['sparse_list'],
     version=version,
-    description='A list where most (>95%) values will be None (or default)',
+    description='A list where most values will be None (or some other default)',
     author=paj,
     author_email=paj_email,
     maintainer=paj,
@@ -24,10 +24,11 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development",
@@ -38,6 +39,5 @@ setup(
     long_description=(''.join(
         [open(f).read() for f in ('README.rst',) if os.path.isfile(f)]
     )),
-    install_requires=['six'],
     license='MIT'
 )
