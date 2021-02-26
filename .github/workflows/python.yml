@@ -32,5 +32,15 @@ jobs:
       run: flake8
 
     - name: Test with pytest
-      run: pytest
+      run: pytest --cov=sparse_list --cov-report=xml --cov-report=html --junitxml=test-results-${{ matrix.python-version }}.xml
+
+    - name: Upload pytest test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: pytest-results-${{ matrix.python-version }}
+        path: |
+          coverage.xml
+          htmlcov/
+          test-results-${{ matrix.python-version }}.xml
+      if: ${{ always() }}
 
