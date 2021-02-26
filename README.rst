@@ -38,7 +38,7 @@ Contributing
 2. Create your feature branch (``git checkout -b my-new-feature``)
 3. Commit your changes (``git commit -am 'Add some feature'``)
 4. Ensure the tests pass for all Pythons in
-   `.travis.yml <https://github.com/johnsyweb/python_sparse_list/blob/master/.travis.yml>`__
+   `.python.yml <https://github.com/johnsyweb/python_sparse_list/blob/HEAD/.github/workflows/python.yml>`__
 5. Push to the branch (``git push origin my-new-feature``)
 6. Create new Pull Request
 
