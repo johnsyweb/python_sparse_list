@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = '0.9'
+version = '1.0'
 github_url = 'https://github.com/johnsyweb/python_sparse_list'
 paj = 'Pete Johns'
 paj_email = 'paj+pypi@johnsy.com'
