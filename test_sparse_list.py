@@ -17,7 +17,7 @@ class TestSparseList:
 
     def test_init_no_default(self):
         sl = sparse_list.SparseList(1)
-        assert None == sl.default
+        assert sl.default is None
         assert 0 == sl.population()
 
     def test_init_default(self):
@@ -142,7 +142,7 @@ class TestSparseList:
 
     def test_default_slice(self):
         sl = sparse_list.SparseList(23)
-        sl[0:2] = (1,2)
+        sl[0:2] = (1, 2)
         assert [None, None] == sl[2:4]
 
     def test_slice_list_size(self):
@@ -162,7 +162,7 @@ class TestSparseList:
 
     def test_get_out_of_bounds(self):
         sl = sparse_list.SparseList(1)
-        assert None == sl[1]
+        assert sl[1] is None
 
     def test_set_out_of_bounds(self):
         sl = sparse_list.SparseList(1)
@@ -334,7 +334,6 @@ class TestSparseList:
         assert not (b <= a)
         assert not (b < a)
 
-
     def test_multiply(self):
         sl = sparse_list.SparseList({0: 1, 4: 1}, 0)
         sl4 = sl * 4
@@ -383,7 +382,7 @@ class TestSparseList:
 
     def test_pop_no_value(self):
         sl = sparse_list.SparseList(4)
-        assert None == sl.pop()
+        assert sl.pop() is None
 
     def test_pop_empty(self):
         sl = sparse_list.SparseList(0)
