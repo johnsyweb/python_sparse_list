@@ -47,8 +47,8 @@ Thanks
 If you find this stuff useful, please follow this repository on
 `GitHub <https://github.com/johnsyweb/python_sparse_list>`__. If you
 have something to say, you can contact
-`johnsyweb <http://johnsy.com/about/>`__ on
-`Twitter <http://twitter.com/johnsyweb/>`__ and
+`johnsyweb <https://johnsy.com/about/>`__ on
+`Mastodon <https://mastodon.world/@johnsyweb>`__ and
 `GitHub <https://github.com/johnsyweb/>`__.
 
 
@@ -56,7 +56,7 @@ Many thanks
 -----------
 
 I'm grateful for contributions to what was a solo project (hooray for
-`GitHub :octocat:) <http://github.com/>`__! If you'd like to thank the
+`GitHub :octocat:) <https://github.com/>`__! If you'd like to thank the
 contributors, you can find their details here:
 
 https://github.com/johnsyweb/python_sparse_list/graphs/contributors
