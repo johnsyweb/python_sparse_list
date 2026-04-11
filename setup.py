@@ -1,10 +1,19 @@
 from setuptools import setup
+import json
 import os
 
 version = '1.0'
 github_url = 'https://github.com/johnsyweb/python_sparse_list'
 paj = 'Pete Johns'
 paj_email = 'paj+pypi@johnsy.com'
+
+with open(os.path.join(os.path.dirname(__file__), 'ci', 'python_versions.json')) as f:
+    python_versions = json.load(f)['python_versions']
+
+python_classifiers = [
+    'Programming Language :: Python :: {}'.format(version)
+    for version in python_versions
+]
 
 setup(
     name='sparse_list',
@@ -25,11 +34,7 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11",
-        "Programming Language :: Python :: 3.12",
-        "Programming Language :: Python :: 3.13",
-        "Programming Language :: Python :: 3.14",
+    ] + python_classifiers + [
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development",

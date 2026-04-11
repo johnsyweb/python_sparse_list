@@ -11,12 +11,29 @@ on:
     - cron: '0 0 * * 1'
 
 jobs:
+  versions:
+
+    runs-on: ubuntu-latest
+    outputs:
+      python-versions: ${{ steps.matrix.outputs.python-versions }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build matrix
+      id: matrix
+      run: |
+        versions=$(python -c "import json; print(json.dumps(json.load(open('ci/python_versions.json'))['python_versions']))")
+        echo "python-versions=${versions}" >> "$GITHUB_OUTPUT"
+
   build:
+    needs: versions
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.10', '3.11', '3.12', '3.13', '3.14']
+        python-version: ${{ fromJson(needs.versions.outputs.python-versions) }}
 
     steps:
     - name: Checkout
