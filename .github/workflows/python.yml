@@ -19,7 +19,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
     - name: Build matrix
       id: matrix
@@ -37,10 +37,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -56,7 +56,7 @@ jobs:
       run: pytest --cov=sparse_list --cov-report=xml --cov-report=html --junitxml=test-results-${{ matrix.python-version }}.xml
 
     - name: Upload pytest test results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
       with:
         name: pytest-results-${{ matrix.python-version }}
         path: |

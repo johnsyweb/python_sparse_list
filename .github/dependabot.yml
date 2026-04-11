@@ -4,6 +4,10 @@ updates:
     directory: "/"
     schedule:
       interval: weekly
+    groups:
+      pip-dependencies:
+        patterns:
+          - "*"
     labels:
       - dependencies
 
@@ -11,5 +15,9 @@ updates:
     directory: "/"
     schedule:
       interval: weekly
+    groups:
+      github-actions-dependencies:
+        patterns:
+          - "*"
     labels:
       - dependencies
