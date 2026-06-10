@@ -30,14 +30,42 @@ Usage
 See the
 `unit-tests <https://github.com/johnsyweb/python_sparse_list/blob/HEAD/test_sparse_list.py>`__!
 
+Development
+-----------
+
+This project uses `mise <https://mise.jdx.dev/>`__ to manage the Python version
+and development tasks. Install mise first, then:
+
+.. code-block:: shell
+
+    $ mise trust
+    $ mise run bootstrap
+
+The available tasks follow the
+`scripts-to-rule-them-all <https://github.com/github/scripts-to-rule-them-all>`__
+convention:
+
++---------------------+-------------------------------------------+
+| Task                | Description                               |
++=====================+===========================================+
+| ``mise run bootstrap`` | Install dependencies                   |
++---------------------+-------------------------------------------+
+| ``mise run test``   | Run the test suite                        |
++---------------------+-------------------------------------------+
+| ``mise run lint``   | Lint the code with flake8                 |
++---------------------+-------------------------------------------+
+| ``mise run cibuild``| Run lint and tests (mirrors CI)           |
++---------------------+-------------------------------------------+
+| ``mise run update`` | Upgrade dependencies to latest versions   |
++---------------------+-------------------------------------------+
+
 Contributing
 ------------
 
 1. Fork it
 2. Create your feature branch (``git checkout -b my-new-feature``)
 3. Commit your changes (``git commit -am 'Add some feature'``)
-4. Ensure the tests pass for all Pythons in
-   `.python.yml <https://github.com/johnsyweb/python_sparse_list/blob/HEAD/.github/workflows/python.yml>`__
+4. Run ``mise run cibuild`` to verify lint and tests pass
 5. Push to the branch (``git push origin my-new-feature``)
 6. Create new Pull Request
 
@@ -47,8 +75,7 @@ Thanks
 If you find this stuff useful, please follow this repository on
 `GitHub <https://github.com/johnsyweb/python_sparse_list>`__. If you
 have something to say, you can contact
-`johnsyweb <https://johnsy.com/about/>`__ on
-`Mastodon <https://mastodon.world/@johnsyweb>`__ and
+`johnsyweb <https://www.johnsy.com/about/>`__ on
 `GitHub <https://github.com/johnsyweb/>`__.
 
 

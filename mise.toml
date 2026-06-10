@@ -1,0 +1,22 @@
+[tools]
+python = "3.14"
+
+[tasks.bootstrap]
+description = "Install dependencies"
+run = "pip install -r requirements.txt"
+
+[tasks.test]
+description = "Run the tests"
+run = "pytest --cov=sparse_list --cov-report=xml --cov-report=html"
+
+[tasks.lint]
+description = "Lint the code"
+run = "flake8"
+
+[tasks.cibuild]
+description = "Run lint and tests (as in CI)"
+depends = ["lint", "test"]
+
+[tasks.update]
+description = "Update the project after pulling changes"
+depends = ["bootstrap"]
