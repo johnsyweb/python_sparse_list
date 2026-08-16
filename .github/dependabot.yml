@@ -23,6 +23,9 @@ updates:
       semver-major-days: 14
     labels:
       - "dependencies"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -47,3 +50,5 @@ updates:
       semver-major-days: 14
     labels:
       - "dependencies"
+    commit-message:
+      prefix: "ci"
