@@ -18,6 +18,9 @@ updates:
         update-types:
           - "patch"
           - "minor"
+    cooldown:
+      default-days: 3
+      semver-major-days: 14
     labels:
       - "dependencies"
 
@@ -39,5 +42,8 @@ updates:
         update-types:
           - "patch"
           - "minor"
+    cooldown:
+      default-days: 3
+      semver-major-days: 14
     labels:
       - "dependencies"
