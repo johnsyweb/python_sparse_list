@@ -47,7 +47,6 @@ updates:
           - "minor"
     cooldown:
       default-days: 3
-      semver-major-days: 14
     labels:
       - "dependencies"
     commit-message:
