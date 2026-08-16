@@ -1,23 +1,29 @@
 version: 2
 updates:
-  - package-ecosystem: pip
+  - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: weekly
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Australia/Sydney"
     groups:
       pip-dependencies:
         patterns:
           - "*"
     labels:
-      - dependencies
+      - "dependencies"
 
-  - package-ecosystem: github-actions
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: weekly
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Australia/Sydney"
     groups:
       github-actions-dependencies:
         patterns:
           - "*"
     labels:
-      - dependencies
+      - "dependencies"
