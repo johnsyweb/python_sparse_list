@@ -11,6 +11,13 @@ updates:
       pip-dependencies:
         patterns:
           - "*"
+      security-patches:
+        applies-to: "security-updates"
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+          - "minor"
     labels:
       - "dependencies"
 
@@ -25,5 +32,12 @@ updates:
       github-actions-dependencies:
         patterns:
           - "*"
+      security-patches:
+        applies-to: "security-updates"
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+          - "minor"
     labels:
       - "dependencies"
